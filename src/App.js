@@ -6,11 +6,13 @@ import Home from './Home'
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className='hero_area'>
         <Header />
-        <Routes>
-          <Route path="/" component={Home} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
