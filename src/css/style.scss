@@ -7,7 +7,6 @@ $btnColor: #db4f66;
 // font-family: 'Poppins', sans-serif;
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 // font awesome
-@import url("font-awesome.min.css");
 
 @mixin main-font {
   font-family: "poppins", sans-serif;
@@ -176,18 +175,19 @@ a:focus {
   border: none;
 }
 
-
+/*
 
 .custom_nav-container {
   z-index: 99999;
   padding: 0;
   flex-direction: column;
   align-items: center;
-
+  
   .navbar-toggler {
     outline: none;
-  }
+  } 
 }
+*/
 
 .custom_nav-container .navbar-toggler {
   outline: none;
@@ -228,7 +228,7 @@ a:focus {
     }
   }
 
-  &[aria-expanded="true"] {
+  &::after {
     transform: rotate(360deg);
 
     span {
