@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import './css/style.css';
+import logo from '../logo.svg';
+import '../assets/css/style.css';
 import Slider from './Slider'
 
 const Home = () => {

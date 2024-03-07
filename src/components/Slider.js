@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './css/style.css';
+import '../assets/css/style.css';
 import { Carousel, Container, Row, Col}  from 'react-bootstrap';
-import sliderImg from  './images/slider-img.png'
+import sliderImg from  '../assets/images/slider-img.png'
 
 
 const Slider = () => {

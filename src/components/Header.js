@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './css/style.css';
-import './css/responsive.css';
+import '../assets/css/style.css';
+import '../assets/css/responsive.css';
 import { Navbar, Nav} from 'react-bootstrap';
 
 
