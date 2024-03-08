@@ -3,7 +3,12 @@
 body {
   font-family: "poppins", sans-serif;
   color: #101010;
-  background-color: #ffffff;
+  background-color: #FAFAFB !important;
+}
+
+#brand-img {
+  padding: 0;
+  margin: 0;
 }
 
 .layout_padding {
