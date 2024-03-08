@@ -20,7 +20,7 @@ function NewProductsSwiper() {
     return(
         <div className='custom-swiper-container'>
             <h1>Nuevos Productos!</h1>
-            <div >
+            <div>
                 <Swiper
                 modules={[Navigation]}
                 spaceBetween={0}
