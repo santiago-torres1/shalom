@@ -1,11 +1,11 @@
-import p1 from '../../assets/images/p1.png'
-import p2 from '../../assets/images/p2.png'
-import p3 from '../../assets/images/p3.png'
-import p4 from '../../assets/images/p4.png'
-import p5 from '../../assets/images/p5.png'
-import p6 from '../../assets/images/p6.png'
-import p7 from '../../assets/images/p7.png'
-import p8 from '../../assets/images/p8.png'
+const p1 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p2 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p3 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p4 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p5 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p6 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p7 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p8 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
 
 const products = [
     {

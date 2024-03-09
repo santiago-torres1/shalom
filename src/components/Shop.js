@@ -5,22 +5,21 @@ import products from './Products/Products';
 import { Container, Row, Col } from 'react-bootstrap';
 
 function Shop() {
-    return(
-        <Container fluid>
-            {products.map(product => (
-                <Row>
-                    <Col md='4'>
-                        <ProductCard
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            img={product.img}
-                        />
-                    </Col>
-                </Row>
-            ))}
-        </Container>
-    )
-}
-
+    return (
+      <Container fluid>
+        <Row>
+          {products.map(product => (
+            <Container key={product.id} className='col-lg-3 col-md-4 col-sm-6 mb-3'> {/* Adjust column sizes as needed */}
+              <ProductCard
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                img={product.img}
+              />
+            </Container>
+          ))}
+        </Row>
+      </Container>
+    );
+  }
 export default Shop

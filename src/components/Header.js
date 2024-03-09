@@ -10,9 +10,9 @@ function Header() {
   const [open, setOpen] = useState()
 
   return (
-    <header className="header_section">
-      <Navbar expand="lg" sticky="top" className='custom_nav-container'>
-        <Link to="/" className="navbar-brand" id='brand-img'>
+    <header className="header_section sticky-top custom-header-bg">
+      <Navbar expand="lg" className='custom_nav-container'>
+        <Link to="/" className="navbar-brand px-auto" id='brand-img'>
           <img src={brandName} alt='logo' />
         </Link>
         <Navbar.Toggle

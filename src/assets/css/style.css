@@ -65,7 +65,11 @@ body {
 
 /*header section*/
 .hero_area {
-  padding: 0 45px;
+  padding: 0px;
+}
+
+.custom-header-bg {
+  background-color: #fafafa;
 }
 
 .hero_area.sub_pages {
@@ -79,7 +83,6 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 10px 0;
-  border-radius: 15px 15px 0 0;
 }
 
 #navbarSupportedContent.innerpage_navbar {
@@ -152,6 +155,13 @@ a:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.sticky-top-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 .custom_nav-container .navbar-toggler {
