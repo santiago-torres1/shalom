@@ -4,7 +4,7 @@ import '../assets/css/style.css';
 import '../assets/css/responsive.css';
 import { Navbar, Nav} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import brandName from '../assets/images/ShalomTop2.png'
+import brandName from '../assets/images/Shalom_transparent.png'
 
 function Header() {
   const [open, setOpen] = useState()
@@ -12,30 +12,30 @@ function Header() {
   return (
     <header className="header_section sticky-top custom-header-bg">
       <Navbar expand="lg" className='custom_nav-container'>
-        <Link to="/" className="navbar-brand px-auto" id='brand-img'>
-          <img src={brandName} alt='logo' />
+        <Link to="/" className="navbar-brand px-auto mx-3 my-2" id='brand-img'>
+          <img src={brandName} alt='logo' style={{ width: '120px', height: 'auto'}} />
         </Link>
         <Navbar.Toggle
           aria-controls="navbarSupportedContent"
           aria-expanded={open}
           onClick={() => setOpen(!open)}
-          className='custom-toggler' />
+          className='custom-toggler mx-3' />
         <Navbar.Collapse in={open} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
             <Nav.Item>
-              <Link to="/" className="nav-link">Inicio <span className="sr-only"></span></Link>
+              <Link to="/" className="nav-link px-3">Inicio <span className="sr-only"></span></Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/shop" className="nav-link">Productos</Link>
+              <Link to="/shop" className="nav-link px-3">Productos</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/why" className="nav-link">Sobre Nosotros</Link>
+              <Link to="/why" className="nav-link px-3">Sobre Nosotros</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/testimonial" className="nav-link">Reseñas</Link>
+              <Link to="/testimonial" className="nav-link px-3">Reseñas</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/contact" className="nav-link">Contáctanos</Link>
+              <Link to="/contact" className="nav-link px-3">Contáctanos</Link>
             </Nav.Item>
           </Nav>
           <div className="user_option">

@@ -6,10 +6,10 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function Shop() {
     return (
-      <Container fluid>
+      <Container fluid className='my-4'>
         <Row>
           {products.map(product => (
-            <Container key={product.id} className='col-lg-3 col-md-4 col-sm-6 mb-3'> {/* Adjust column sizes as needed */}
+            <Container key={product.id} className='col-lg-3 col-md-4 col-sm-6 mb-3 px-0'>
               <ProductCard
                 id={product.id}
                 name={product.name}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../../assets/css/style.css';
 import '../../assets/css/responsive.css';
 import './Products.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Container, Card, Button }  from 'react-bootstrap';
 
@@ -17,16 +18,17 @@ function ProductCard({id, img, name, price}) {
                     <Card.Img
                         className='mx-auto img-thumbnail custom-img'
                         src={img}
-                        width="576px"
-                        height="auto"
                     />
                 </div>
-                <Card.Body className="text-center mx-auto">
+                <Card.Body className="text-center col-12 px-0 pb-0">
                     <div className='cvp'>
                         <Card.Title className="font-weight-bold">{name}</Card.Title>
                         <Card.Text>{price}</Card.Text>
-                        <Button href="#" variant="primary" className="details">Ver Detalles</Button><br />
-                        <Button href="#" variant="primary" className="cart">Anadir al carrito</Button>
+                        <Button href="#" className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
+                        <Button href="#" className="cart col-12 rounded-0 custom-card-button">
+                            <FontAwesomeIcon icon='shopping-bag'/>
+                            &nbsp;Añadir al carrito
+                        </Button>
                     </div>
                 </Card.Body>
             </Card>

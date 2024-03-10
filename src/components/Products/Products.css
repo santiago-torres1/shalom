@@ -8,14 +8,28 @@
     margin: auto
 }
 
-.custom-img {
-    width: auto !important;
-    height: auto !important;
-    border: none !important;
+.custom-img-container .custom-img {
+    border: none;
+    padding: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .custom-img-container {
     display: flex;
-    width: auto;
-    height: 200px;
+}
+
+.cvp .custom-card-button {
+    border-top: gray solid 1px !important;
+    background-color: white; 
+    color: black;
+    border: none;
+    
+}
+
+.cvp .custom-card-button:hover {
+    background-color: #f9ece6; 
+    color: black;
+    border: none;
+    
 }
