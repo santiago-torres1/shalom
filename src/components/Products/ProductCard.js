@@ -36,4 +36,5 @@ function ProductCard({id, img, name, price}) {
     );
 }
 
+
 export default ProductCard
