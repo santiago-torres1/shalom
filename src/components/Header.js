@@ -23,7 +23,7 @@ function Header() {
         <Navbar.Collapse in={open} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
             <Nav.Item>
-              <Link to="/" className="nav-link px-3">Inicio <span className="sr-only"></span></Link>
+              <Link to="/" className="nav-link px-0">Inicio <span className="sr-only"></span></Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="/shop" className="nav-link px-3">Productos</Link>
