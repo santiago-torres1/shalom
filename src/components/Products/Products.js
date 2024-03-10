@@ -1,11 +1,11 @@
 const p1 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p2 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p3 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p4 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p5 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p6 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p7 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
-const p8 = 'https://kantica.com.co/cdn/shop/products/I0686119.jpg';
+const p2 = 'https://kantica.com.co/cdn/shop/products/I0686120.jpg';
+const p3 = 'https://kantica.com.co/cdn/shop/products/I0686121.jpg';
+const p4 = 'https://kantica.com.co/cdn/shop/products/I0686122.jpg';
+const p5 = 'https://kantica.com.co/cdn/shop/products/I0686123.jpg';
+const p6 = 'https://kantica.com.co/cdn/shop/products/I0686124.jpg';
+const p7 = 'https://kantica.com.co/cdn/shop/products/I0686125.jpg';
+const p8 = 'https://kantica.com.co/cdn/shop/products/I0686126.jpg';
 
 const products = [
     {
