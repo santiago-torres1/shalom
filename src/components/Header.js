@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/css/style.css';
-import '../assets/css/responsive.css';
 import { Navbar, Nav} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
