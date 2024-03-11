@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../assets/css/style.css';
 import { Navbar, Nav} from 'react-bootstrap';
@@ -7,6 +8,12 @@ import brandName from '../assets/images/Shalom_transparent.png'
 
 function Header() {
   const [open, setOpen] = useState()
+  const [current, setCurrent] = useState('home')
+  const location = useLocation()
+
+  useEffect(()=> {
+    setCurrent(location.pathname)
+  }, [location])
 
   return (
     <header className="header_section sticky-top custom-header-bg">
@@ -21,33 +28,34 @@ function Header() {
           className='custom-toggler mx-3' />
         <Navbar.Collapse in={open} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
-            <Nav.Item>
-              <Link to="/" className="nav-link px-0">Inicio <span className="sr-only"></span></Link>
+            <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
+              <Link to="/" className="nav-link px-3">Inicio</Link>
             </Nav.Item>
-            <Nav.Item>
+            <Nav.Item className={current==='/shop' ? 'active' : undefined}>
               <Link to="/shop" className="nav-link px-3">Productos</Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link to="/why" className="nav-link px-3">Sobre Nosotros</Link>
+            <Nav.Item className={current==='/about' ? 'active' : undefined}>
+              <Link to="/about" className="nav-link px-3">Sobre Nosotros</Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link to="/testimonial" className="nav-link px-3">Reseñas</Link>
+            <Nav.Item className={current==='/reviews' ? 'active' : undefined}>
+              <Link to="/reviews" className="nav-link px-3">Reseñas</Link>
             </Nav.Item>
-            <Nav.Item>
+            <Nav.Item className={current==='/contact' ? 'active' : undefined}>
               <Link to="/contact" className="nav-link px-3">Contáctanos</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/login" className="nav-link px-3">
+                <span>Inicia Sesión</span>
+              </Link>
             </Nav.Item>
           </Nav>
           <div className="user_option">
-            <Link to="/login" className="nav-link">
-              <FontAwesomeIcon icon="user" />
-              <span>Inicia Sesión</span>
-            </Link>
             <Link to="/shopping-cart" className="nav-link">
-              <FontAwesomeIcon icon="shopping-bag" />
+              <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.5em' }} />
             </Link>
             <form className="form-inline">
               <button className="btn nav_search-btn" type="submit">
-                <FontAwesomeIcon icon="search" />
+                <FontAwesomeIcon icon="search"  style={{ fontSize: '1.4em' }}/>
               </button>
             </form>
           </div>
