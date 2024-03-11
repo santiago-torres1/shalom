@@ -11,15 +11,13 @@ library.add(faUser, faShoppingBag, faSearch)
 const App = () => {
   return (
     <Router>
-      <div className='hero_area'>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-          </Routes>
-        </main>
-      </div>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+        </Routes>
+      </main>
     </Router>
   );
 }
