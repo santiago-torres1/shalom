@@ -1,6 +1,5 @@
 import ProductCard from './Products/ProductCard';
 import '../assets/css/style.css';
-import '../assets/css/responsive.css';
 import products from './Products/Products';
 import { Container, Row, Col } from 'react-bootstrap';
 
