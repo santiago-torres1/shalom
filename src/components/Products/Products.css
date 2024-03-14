@@ -33,3 +33,7 @@
     border: none;
     
 }
+
+.swiper-pagination-bullet-active {
+    background: black !important;
+}
