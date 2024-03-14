@@ -9,7 +9,7 @@ import { Container, Card, Button }  from 'react-bootstrap';
 
 
 
-function ProductCard({id, img, name, price}) {
+function ProductCard({img, name, price}) {
     return (
         <Container fluid>
             <Card>

@@ -334,9 +334,8 @@ a:focus {
 
 /*end header section*/
 .slider_section .slider_container {
-  color: #fefefe;
-  background-color: #000000;
-  background-color: #f89cab;
+  color: black;
+  background-color: #fefefe;
   padding: 25px;
   border-radius: 0 0 15px 15px;
 }
@@ -358,7 +357,7 @@ a:focus {
 }
 
 .slider_section .img-box img {
-  width: 275px;
+  width: 400px;
 }
 
 .slider_section .detail-box {
@@ -375,9 +374,9 @@ a:focus {
 .slider_section .detail-box a {
   display: inline-block;
   padding: 10px 40px;
-  background-color: #db4566;
+  background-color: #F7C59F;
   color: #ffffff;
-  border: 1px solid #db4566;
+  border: 1px solid #F7C59F;
   border-radius: 5px;
   -webkit-transition: all .3s;
   transition: all .3s;
@@ -387,7 +386,7 @@ a:focus {
 
 .slider_section .detail-box a:hover {
   background-color: transparent;
-  color: #db4566;
+  color: #F7C59F;
 }
 
 .slider_section .carousel_btn-box {
