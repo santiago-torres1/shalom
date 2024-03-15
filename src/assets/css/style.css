@@ -420,6 +420,12 @@ a:focus {
   font-size: 14px;
 }
 
+.info_section {
+  position: relative;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  margin: 0 45px 45px;
+}
 
 /* end info section */
 /* footer section*/

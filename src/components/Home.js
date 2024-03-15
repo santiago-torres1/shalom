@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/css/style.css';
-import Slider from './Slider'
+import Slider from './Slider/Slider';
 import NewProductsSwiper from './Products/NewProductsSwiper';
 
 const Home = () => {
