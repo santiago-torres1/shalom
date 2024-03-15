@@ -1,27 +1,20 @@
 import '../../assets/css/style.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Container, Row} from 'react-bootstrap';
+import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons'
 
 function Footer() {
     return (
-        <section class="info_section  layout_padding2-top">
-        <div class="social_container">
-          <div class="social_box">
-            <a href="">
-              <FontAwesomeIcon icon={'facebook'} aria-aria-hidden={true}/>
-            </a>
-            <a href="">
-              <FontAwesomeIcon icon={'twitter'} aria-aria-hidden={true}/>
-            </a>
-            <a href="">
-              <FontAwesomeIcon icon={'instagram'} aria-aria-hidden={true}/>
-            </a>
-            <a href="">
-              <FontAwesomeIcon icon={'youtube'} aria-aria-hidden={true}/>
-            </a>
+        <section className="info_section  layout_padding2-top">
+        <div className="social_container">
+          <div className="social_box">
+              <FontAwesomeIcon icon={faFacebook}/><span></span>
+              <FontAwesomeIcon icon={faTwitter}/><span></span>
+              <FontAwesomeIcon icon={faInstagram}/><span></span>
+              <FontAwesomeIcon icon={faYoutube}/><span></span>
           </div>
         </div>
-        <div class="info_container ">
+        <div className="info_container ">
           <Container>
             <Row>
               <div className="col-md-6 col-lg-3">
@@ -58,18 +51,14 @@ function Footer() {
                   CONTACT US
                 </h6>
                 <div className="info_link-box">
-                  <a href="">
-                    <FontAwesomeIcon icon={'map-marker'} aria-aria-hidden={true}/>
-                    <span> Gb road 123 london Uk </span>
-                  </a>
-                  <a href="">
-                    <FontAwesomeIcon icon={'phone'} aria-aria-hidden={true}/>
-                    <span>+01 12345678901</span>
-                  </a>
-                  <a href="">
-                    <FontAwesomeIcon icon={'envelope'} aria-aria-hidden={true}/>
-                    <span> demo@gmail.com</span>
-                  </a>
+                  <ul>
+                    <li><FontAwesomeIcon icon={'map-marker'} aria-aria-hidden={true}/>
+                    <span> Gb road 123 london Uk </span></li>
+                    <li><FontAwesomeIcon icon={'phone'} aria-aria-hidden={true}/>
+                    <span>+01 12345678901</span></li>
+                    <li><FontAwesomeIcon icon={'envelope'} aria-aria-hidden={true}/>
+                    <span> demo@gmail.com</span></li>
+                  </ul>
                 </div>
               </div>
             </Row>

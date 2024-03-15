@@ -5,10 +5,9 @@ import Home from './components/Home';
 import Shop from './components/Shop';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from '@fortawesome/free-solid-svg-icons';
-import { facebook, youtube, instagram, twitter} from '@fortawesome/fontawesome-free'
 import Footer from './components/Footer/Footer';
 
-library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope, facebook, youtube, instagram, twitter)
+library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope)
 
 const App = () => {
   return (
