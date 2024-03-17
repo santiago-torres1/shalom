@@ -5,13 +5,13 @@ import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free
 
 function Footer() {
     return (
-        <section className="info_section  layout_padding2-top">
+        <section className="info_section">
         <div className="social_container">
           <div className="social_box">
-              <FontAwesomeIcon icon={faFacebook}/><span></span>
-              <FontAwesomeIcon icon={faTwitter}/><span></span>
-              <FontAwesomeIcon icon={faInstagram}/><span></span>
-              <FontAwesomeIcon icon={faYoutube}/><span></span>
+              <a href='https://facebook.com'><FontAwesomeIcon icon={faFacebook} id='facebook-icon'/><span></span></a>
+              <a href='https://x.com'><FontAwesomeIcon icon={faTwitter} id='twitter-icon'/><span></span></a>
+              <a href='https://instagram.com'><FontAwesomeIcon icon={faInstagram} id='instagram-icon'/><span></span></a>
+              <a href='https://youtube.com'><FontAwesomeIcon icon={faYoutube} id='youtube-icon'/><span></span></a>
           </div>
         </div>
         <div className="info_container ">
@@ -19,7 +19,7 @@ function Footer() {
             <Row>
               <div className="col-md-6 col-lg-3">
                 <h6>
-                  ABOUT US
+                  Sobre Nosotros
                 </h6>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
@@ -28,7 +28,7 @@ function Footer() {
               <div className="col-md-6 col-lg-3">
                 <div className="info_form ">
                   <h5>
-                    Newsletter
+                    Suscribete!
                   </h5>
                   <form action="#">
                     <input type="email" placeholder="Enter your email"/>
@@ -40,7 +40,7 @@ function Footer() {
               </div>
               <div className="col-md-6 col-lg-3">
                 <h6>
-                  NEED HELP
+                  Necesitas Ayuda?
                 </h6>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
@@ -48,16 +48,16 @@ function Footer() {
               </div>
               <div className="col-md-6 col-lg-3">
                 <h6>
-                  CONTACT US
+                  Contactanos
                 </h6>
                 <div className="info_link-box">
                   <ul>
-                    <li><FontAwesomeIcon icon={'map-marker'} aria-aria-hidden={true}/>
-                    <span> Gb road 123 london Uk </span></li>
-                    <li><FontAwesomeIcon icon={'phone'} aria-aria-hidden={true}/>
-                    <span>+01 12345678901</span></li>
-                    <li><FontAwesomeIcon icon={'envelope'} aria-aria-hidden={true}/>
-                    <span> demo@gmail.com</span></li>
+                    <li><FontAwesomeIcon icon={'map-marker'} aria-hidden={true}/>
+                    <span>&nbsp;Carrera 67 #169a82 </span></li>
+                    <li><FontAwesomeIcon icon={'phone'} aria-hidden={true}/>
+                    <span>&nbsp;312 5802253</span></li>
+                    <li><FontAwesomeIcon icon={'envelope'} aria-hidden={true}/>
+                    <span>&nbsp;shalom_tienda@gmail.com</span></li>
                   </ul>
                 </div>
               </div>
@@ -68,7 +68,6 @@ function Footer() {
           <Container class="container">
             <p>
               &copy; <span id="displayYear"></span> All Rights Reserved By Santiago Torres
-              <a href="https://html.design/">Free Html Templates</a>
             </p>
           </Container>
         </footer>

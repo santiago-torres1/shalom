@@ -12,7 +12,7 @@ import { Container, Card, Button }  from 'react-bootstrap';
 function ProductCard({img, name, price}) {
     return (
         <Container fluid>
-            <Card>
+            <Card className='custom-card'>
                 <div className='custom-img-container'>
                     <Card.Img
                         className='mx-auto img-thumbnail custom-img'

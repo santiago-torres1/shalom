@@ -10,6 +10,7 @@
 
 .custom-img-container .custom-img {
     border: none;
+    border-radius: 0;
     padding: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -36,4 +37,8 @@
 
 .swiper-pagination-bullet-active {
     background: black !important;
+}
+
+.custom-card {
+    border-radius: 0 !important;
 }
