@@ -9,7 +9,7 @@ import { Container, Card, Button }  from 'react-bootstrap';
 
 
 
-function ProductCard({img, name, price}) {
+function ProductCard({id, img, name, price}) {
     return (
         <Container fluid>
             <Card className='custom-card'>
@@ -23,7 +23,7 @@ function ProductCard({img, name, price}) {
                     <div className='cvp'>
                         <Card.Title className="font-weight-bold">{name}</Card.Title>
                         <Card.Text>{price}</Card.Text>
-                        <Button href="#" className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
+                        <Button href={`/shop/${id}`} className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
                         <Button href="#" className="cart col-12 rounded-0 custom-card-button">
                             <FontAwesomeIcon icon='shopping-bag'/>
                             &nbsp;Añadir al carrito
