@@ -43,7 +43,7 @@ function Header() {
             <Nav.Item className={current==='/contact' ? 'active' : undefined}>
               <Link to="/contact" className="nav-link px-3 custom-navlink">Contáctanos</Link>
             </Nav.Item>
-            <Nav.Item>
+            <Nav.Item className={current==='/login' ? ' active' : undefined}>
               <Link to="/login" className="nav-link px-3">
                 <span>Inicia Sesión</span>
               </Link>
