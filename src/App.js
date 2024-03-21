@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Shop from './components/Shop';
 import Login from './components/Login/Login';
 import products from './components/Products/Products';
+import WhatsappButton from './components/WhatsappButton';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import Footer from './components/Footer/Footer';
@@ -29,6 +30,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </main>
+      <WhatsappButton />
       <Footer />
     </Router>
   );

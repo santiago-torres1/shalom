@@ -2,6 +2,16 @@
     width: 400px; 
 }
 
+.custom-input .custom-forgot-password {
+    color: black;
+}
+
+.custom-input .custom-forgot-password:hover {
+    color: #333333;
+}
+
+
+
 @media (max-width: 768px) {
     .container .custom-input {
         width: 90%; 

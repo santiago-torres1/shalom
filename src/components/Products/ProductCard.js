@@ -21,7 +21,7 @@ function ProductCard({id, img, name, price}) {
                 </div>
                 <Card.Body className="text-center col-12 px-0 pb-0">
                     <div className='cvp'>
-                        <Card.Title className="font-weight-bold">{name}</Card.Title>
+                        <Card.Text className="font-weight-bold">{name}</Card.Text>
                         <Card.Text>{price}</Card.Text>
                         <Button href={`/shop/${id}`} className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
                         <Button href="#" className="cart col-12 rounded-0 custom-card-button">

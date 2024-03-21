@@ -10,50 +10,50 @@ const p8 = 'https://kantica.com.co/cdn/shop/products/I0686126.jpg';
 const products = [
     {
         id: 1,
-        name: "Anillo",
-        price: "$199.900",
+        name: "Aretes Dorados",
+        price: "$29.900",
         img: p1
     },
     {
         id: 2,
-        name: "Reloj",
-        price: "$299.900",
+        name: "Aretes Dorados 2",
+        price: "$25.900",
         img: p2
     },
     {
         id: 3,
-        name: "Osito",
-        price: "$49.900",
+        name: "Aretes Plateados 2",
+        price: "$25.900",
         img: p3
     },
     {
         id: 4,
-        name: "Rosas",
-        price: "$79.900",
+        name: "Aretes Dorados 3",
+        price: "$19.900",
         img: p4
     },
     {
         id: 5,
-        name: "Osito",
-        price: "$89.900",
+        name: "Aretes Plateados 3",
+        price: "$19.900",
         img: p5
     },
     {
         id: 6,
-        name: "Flores",
-        price: "$59.900",
+        name: "Aretes Plateados 4",
+        price: "$19.900",
         img: p6
     },
     {
         id: 7,
-        name: "Reloj",
-        price: "$199.900",
+        name: "Aretes Especiales",
+        price: "$29.900",
         img: p7
     },
     {
         id: 8,
-        name: "Anillo",
-        price: "$599.900",
+        name: "Aretes Gordos",
+        price: "$29.900",
         img: p8
     }
 ]
