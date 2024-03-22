@@ -5,17 +5,24 @@ import '../assets/css/style.css';
 import { Navbar, Nav} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
+import Cart from './Cart/Cart.js'
 
 function Header() {
-  const [open, setOpen] = useState()
+  const [openHeader, setOpenHeader] = useState()
   const [current, setCurrent] = useState('home')
   const location = useLocation()
+  const [openCart, setOpenCart] = useState()
 
   useEffect(()=> {
     setCurrent(location.pathname)
   }, [location])
 
+  const toggleCart = () => {
+    setOpenCart(!openCart)
+  }
+
   return (
+    <>
     <header className="header_section sticky-top custom-header-bg">
       <Navbar expand="lg" className='custom_nav-container'>
         <Link to="/" className="navbar-brand px-auto mx-3 my-2" id='brand-img'>
@@ -23,10 +30,10 @@ function Header() {
         </Link>
         <Navbar.Toggle
           aria-controls="navbarSupportedContent"
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
+          aria-expanded={openHeader}
+          onClick={() => setOpenHeader(!openHeader)}
           className='custom-toggler mx-3' />
-        <Navbar.Collapse in={open} id="navbarSupportedContent">
+        <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
             <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
               <Link to="/" className="nav-link px-3 ">Inicio</Link>
@@ -50,8 +57,8 @@ function Header() {
             </Nav.Item>
           </Nav>
           <div className="user_option">
-            <Link to="/shopping-cart" className="nav-link">
-              <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.5em' }} />
+            <Link className="nav-link">
+              <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.5em' }} onClick={toggleCart}/>
             </Link>
             <form className="form-inline">
               <button className="btn nav_search-btn" type="submit">
@@ -60,8 +67,12 @@ function Header() {
             </form>
           </div>
         </Navbar.Collapse>
+        {openCart && <div className="overlay" onClick={toggleCart}></div>}
       </Navbar>
+      <Cart open={openCart} setOpen={toggleCart} />
     </header>
+    
+    </>
   );
 }
 

@@ -9,17 +9,17 @@ function Login () {
             <Container className='custom-input text-center'>
                 <Form>
                     <Form.Group controlId='formBasicEmail' className='mb-3'>
-                        <Form.Control type='email' placeholder='Ingresa tu correo'/>
+                        <Form.Control type='email' placeholder='Ingresa tu correo' className='rounded-0'/>
                     </Form.Group>
-                    <Form.Group controlId='formBasicPassword' className='mb-3'>
-                        <Form.Control type='password' placeholder='Ingresa tu contrasena' />
+                    <Form.Group controlId='formBasicPassword' className='mb-5'>
+                        <Form.Control type='password' placeholder='Ingresa tu contrasena' className='rounded-0' />
                     </Form.Group>
                     <Link to="/forgot" className='custom-forgot-password'>Olvidaste tu contrasena?</Link><br/>
-                    <Button type='submit' className='mx-auto my-3'>
+                    <Button type='submit' className='mx-auto my-3 custom-login-button'>
                         Iniciar Sesion
                     </Button>
                 </Form>
-                <Button>Crear Cuenta</Button>
+                <Button className='custom-create-account'>Crear Cuenta</Button>
             </Container>
         </Container>
     )

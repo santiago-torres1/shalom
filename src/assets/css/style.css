@@ -11,7 +11,7 @@
 @media (max-width: 992px) {
   .user_option {
       justify-content: center;
-      margin-left: 0;
+      margin-left: 0 !important;
       margin-top: 10px;
 
   }
@@ -212,7 +212,7 @@ body {
 }
 
 .custom_nav-container {
-  z-index: 99999;
+  z-index: 998;
   padding: 0 !important;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;

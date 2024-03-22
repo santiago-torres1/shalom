@@ -10,6 +10,30 @@
     color: #333333;
 }
 
+.custom-input .custom-create-account {
+    background-color: black;
+    border-color: black;
+    border-radius: 0;
+}
+
+.custom-input .custom-login-button {
+    background-color: white;
+    color: black;
+    border-color: black;
+    border-radius: 0;
+}
+
+.custom-input .custom-create-account:hover {
+    background-color: rgba(0, 0, 0, 0.7); 
+    border-color: rgba(0, 0, 0, 0.5); 
+}
+
+.custom-input .custom-login-button:hover {
+    background-color: rgba(255, 255, 255, 0.5); 
+    color: rgba(0, 0, 0, 0.5); 
+    border-color: rgba(0, 0, 0, 0.5); 
+}
+
 
 
 @media (max-width: 768px) {
