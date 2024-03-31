@@ -521,7 +521,7 @@ body {
 }
 
 #instagram-icon:hover {
-  background-image: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45);
+  color: rgb(133, 64, 133);
   transition: all 0.1s ease;
 }
 
@@ -550,4 +550,12 @@ body {
 }
 
 /* end footer section*/
+
+/* small whatsapp button modification */
+
+._1mXIm {
+  max-width: calc(100% - 60px) !important;
+}
+
 /*# sourceMappingURL=style.css.map */
+

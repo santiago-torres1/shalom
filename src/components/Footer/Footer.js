@@ -51,7 +51,7 @@ function Footer() {
                   Contactanos
                 </h6>
                 <div className="info_link-box">
-                  <ul>
+                  <ul className='list-unstyled'>
                     <li><FontAwesomeIcon icon={'map-marker'} aria-hidden={true}/>
                     <span>&nbsp;Carrera 67 #169a82 </span></li>
                     <li><FontAwesomeIcon icon={'phone'} aria-hidden={true}/>

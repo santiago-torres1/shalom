@@ -8,7 +8,7 @@ function Shop() {
       <Container fluid className='my-4' style={{maxWidth: '800px'}}>
         <Row>
           {products.map(product => (
-            <Container key={product.id} className='col-lg-3 col-md-4 col-sm-6 mb-3 px-0'>
+            <Container key={product.id} className='col-lg-3 col-md-4 col-6 mb-3 px-0'>
               <ProductCard
                 key={product.id}
                 id={product.id}

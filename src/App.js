@@ -9,6 +9,7 @@ import WhatsappButton from './components/WhatsappButton';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import Footer from './components/Footer/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope)
 
@@ -19,13 +20,14 @@ const App = () => {
     <Router>
       <Header />
       <main>
-        <Suspense fallback={<div>Loading...</div>}>
+      <ScrollToTop/>
+        <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
             {products.map(product => (
-              <Route path={`/shop/${product.id}`} element={<ProductPage img={product.img} name={product.name} price={product.price}/>}/>
+              <Route path={`/shop/${product.id}`} element={<ProductPage id={product.id}img={product.img} name={product.name} price={product.price}/>}/>
             ))}
           </Routes>
         </Suspense>

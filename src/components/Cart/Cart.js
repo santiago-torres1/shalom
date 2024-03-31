@@ -1,4 +1,5 @@
 import './Cart.css'
+import { Button } from 'react-bootstrap'
 
 function Cart ({open, setOpen}) {
     return (
@@ -6,7 +7,7 @@ function Cart ({open, setOpen}) {
             <div className={`cart-sidebar ${open ? 'open' : ''}`}>
                 <h2>Carrito</h2>
                 <p>Tu carrito esta vacio</p>
-                <button className='close-btn' onClick = {setOpen}>Cerrar</button>
+                <Button className='close-btn' onClick = {setOpen}>Cerrar</Button>
             </div>
         </div>
     )

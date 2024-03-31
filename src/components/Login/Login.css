@@ -34,6 +34,18 @@
     border-color: rgba(0, 0, 0, 0.5); 
 }
 
+.custom-input .custom-create-account:active {
+    background-color: white !important;
+    border-color: white !important;
+    border-radius: 0;
+}
+
+.custom-input .custom-login-button:active {
+    background-color: black !important;
+    color: white !important;
+    border-color: white !important;
+    border-radius: 0;
+}
 
 
 @media (max-width: 768px) {
