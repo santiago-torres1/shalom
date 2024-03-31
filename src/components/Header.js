@@ -36,22 +36,22 @@ function Header() {
         <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
             <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
-              <Link to="/" className="nav-link px-3 ">Inicio</Link>
+              <Link to="/" className="nav-link px-3" onClick={() => setOpenHeader(false)}>Inicio</Link>
             </Nav.Item>
             <Nav.Item className={current==='/shop' ? 'active' : undefined}>
-              <Link to="/shop" className="nav-link px-3 custom-navlink">Productos</Link>
+              <Link to="/shop" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Productos</Link>
             </Nav.Item>
             <Nav.Item className={current==='/about' ? 'active' : undefined}>
-              <Link to="/about" className="nav-link px-3 custom-navlink">Sobre Nosotros</Link>
+              <Link to="/about" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Sobre Nosotros</Link>
             </Nav.Item>
             <Nav.Item className={current==='/reviews' ? 'active' : undefined}>
-              <Link to="/reviews" className="nav-link px-3 custom-navlink">Reseñas</Link>
+              <Link to="/reviews" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Reseñas</Link>
             </Nav.Item>
             <Nav.Item className={current==='/contact' ? 'active' : undefined}>
-              <Link to="/contact" className="nav-link px-3 custom-navlink">Contáctanos</Link>
+              <Link to="/contact" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Contáctanos</Link>
             </Nav.Item>
             <Nav.Item className={current==='/login' ? ' active' : undefined}>
-              <Link to="/login" className="nav-link px-3">
+              <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
                 <span>Inicia Sesión</span>
               </Link>
             </Nav.Item>
