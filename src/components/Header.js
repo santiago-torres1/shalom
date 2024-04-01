@@ -12,10 +12,23 @@ function Header() {
   const [current, setCurrent] = useState('home')
   const location = useLocation()
   const [openCart, setOpenCart] = useState()
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(()=> {
     setCurrent(location.pathname)
   }, [location])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const toggleCart = () => {
     setOpenCart(!openCart)
@@ -28,11 +41,16 @@ function Header() {
         <Link to="/" className="navbar-brand px-auto mx-3 my-2" id='brand-img'>
           <img src={brandName} alt='logo' style={{ width: '120px', height: 'auto'}} />
         </Link>
+        <div className='d-flex'>
+        {width < 992 && <Link className="nav-link">
+              <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.9em', position: 'relative', top: '5px', right: '2px'}} onClick={toggleCart}/>
+            </Link>}
         <Navbar.Toggle
           aria-controls="navbarSupportedContent"
           aria-expanded={openHeader}
           onClick={() => setOpenHeader(!openHeader)}
           className='custom-toggler mx-3' />
+        </div>
         <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
             <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
@@ -57,9 +75,9 @@ function Header() {
             </Nav.Item>
           </Nav>
           <div className="user_option">
-            <Link className="nav-link">
+            {width >= 992 && <Link className="nav-link">
               <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.5em' }} onClick={toggleCart}/>
-            </Link>
+            </Link>}
             <form className="form-inline">
               <button className="btn nav_search-btn" type="submit">
                 <FontAwesomeIcon icon="search"  style={{ fontSize: '1.4em' }}/>

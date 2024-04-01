@@ -64,8 +64,8 @@ function Footer() {
             </Row>
           </Container>
         </div>
-        <footer class=" footer_section">
-          <Container class="container">
+        <footer className=" footer_section">
+          <Container className="container">
             <p>
               &copy; <span id="displayYear"></span> All Rights Reserved By Santiago Torres
             </p>
