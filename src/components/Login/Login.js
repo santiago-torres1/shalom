@@ -4,7 +4,7 @@ import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login () {
-
+    console.log(localStorage.getItem('isAdmin'))
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');

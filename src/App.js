@@ -6,6 +6,7 @@ import Shop from './components/Shop';
 import Login from './components/Login/Login';
 import products from './components/Products/Products';
 import WhatsappButton from './components/WhatsappButton';
+import Admin from './components/Admin/Admin';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import Footer from './components/Footer/Footer';
@@ -14,11 +15,13 @@ import ScrollToTop from './components/ScrollToTop';
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope)
 
 const ProductPage = lazy(() => import('./components/Products/ProductPage'));
+const isAdmin = false;
 
 const App = () => {
+  console.log(isAdmin)
   return (
     <Router>
-      <Header />
+      <Header isAdmin={isAdmin}/>
       <main>
       <ScrollToTop/>
         <Suspense fallback={<div>Cargando...</div>}>
@@ -29,6 +32,7 @@ const App = () => {
             {products.map(product => (
               <Route path={`/shop/${product.id}`} element={<ProductPage id={product.id}img={product.img} name={product.name} price={product.price}/>}/>
             ))}
+            <Route path="/admin/*" element={<Admin isAuthenticated={isAdmin}/>} />
           </Routes>
         </Suspense>
       </main>

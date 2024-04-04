@@ -7,12 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
 import Cart from './Cart/Cart.js'
 
-function Header() {
+function Header({isAdmin}) {
   const [openHeader, setOpenHeader] = useState()
   const [current, setCurrent] = useState('home')
   const location = useLocation()
   const [openCart, setOpenCart] = useState()
   const [width, setWidth] = useState(window.innerWidth);
+
+  function Quit() {
+    setOpenHeader(false);
+    localStorage.setItem('isAdmin', JSON.stringify(true));
+}
 
   useEffect(()=> {
     setCurrent(location.pathname)
@@ -53,26 +58,53 @@ function Header() {
         </div>
         <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
           <Nav className="navbar-nav mr-auto">
+            {isAdmin ? (
+            <>
             <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
               <Link to="/" className="nav-link px-3" onClick={() => setOpenHeader(false)}>Inicio</Link>
             </Nav.Item>
-            <Nav.Item className={current==='/shop' ? 'active' : undefined}>
-              <Link to="/shop" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Productos</Link>
+            <Nav.Item className={current==='/admin/products' ? 'active' : undefined}>
+              <Link to="/admin/products" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Remover/Anadir Productos</Link>
             </Nav.Item>
-            <Nav.Item className={current==='/about' ? 'active' : undefined}>
-              <Link to="/about" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Sobre Nosotros</Link>
+            <Nav.Item className={current==='/admin/orders' ? 'active' : undefined}>
+              <Link to="/admin/orders" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Ordenes</Link>
             </Nav.Item>
-            <Nav.Item className={current==='/reviews' ? 'active' : undefined}>
-              <Link to="/reviews" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Reseñas</Link>
+            <Nav.Item className={current==='/admin/customers' ? 'active' : undefined}>
+              <Link to="/admin/customers" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Clientes</Link>
             </Nav.Item>
-            <Nav.Item className={current==='/contact' ? 'active' : undefined}>
-              <Link to="/contact" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Contáctanos</Link>
+            <Nav.Item className={current==='/admin/manage' ? 'active' : undefined}>
+              <Link to="/admin/manage" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Administrar</Link>
             </Nav.Item>
             <Nav.Item className={current==='/login' ? ' active' : undefined}>
-              <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
-                <span>Inicia Sesión</span>
+              <Link to="/admin/quit" className="nav-link px-3" onClick={Quit}>
+                <span>Salir de Administrador</span>
               </Link>
             </Nav.Item>
+            </>
+            ) : (
+              <>
+              <Nav.Item className={(current==='/home' || current==='/') ? 'active' : undefined}>
+                <Link to="/" className="nav-link px-3" onClick={() => setOpenHeader(false)}>Inicio</Link>
+              </Nav.Item>
+              <Nav.Item className={current==='/shop' ? 'active' : undefined}>
+                <Link to="/shop" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Productos</Link>
+              </Nav.Item>
+              <Nav.Item className={current==='/about' ? 'active' : undefined}>
+                <Link to="/about" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Sobre Nosotros</Link>
+              </Nav.Item>
+              <Nav.Item className={current==='/reviews' ? 'active' : undefined}>
+                <Link to="/reviews" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Reseñas</Link>
+              </Nav.Item>
+              <Nav.Item className={current==='/contact' ? 'active' : undefined}>
+                <Link to="/contact" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Contáctanos</Link>
+              </Nav.Item>
+              <Nav.Item className={current==='/login' ? ' active' : undefined}>
+                <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
+                  <span>Inicia Sesión</span>
+                </Link>
+              </Nav.Item>
+              </>
+              )}
           </Nav>
           <div className="user_option">
             {width >= 992 && <Link className="nav-link">
