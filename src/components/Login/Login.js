@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 
-function Login () {
-    console.log(localStorage.getItem('isAdmin'))
+function Login ({isAdmin, onAuthChange}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [admin, setAdmin] = useState(isAdmin)
+
+    useEffect(() => {
+        onAuthChange(admin)
+        if (admin === true) {
+            navigate('/admin');
+        }
+    }, [admin, onAuthChange, navigate])
 
     const handleLogin = (e) => {
         e.preventDefault();
         if (email === 'admin@shalom.com' && password === 'admin') {
-            localStorage.setItem('isAdmin', JSON.stringify(true));
-            navigate('/admin');
+            setAdmin(true);
+            console.log(isAdmin);
         } else {
             setError('Usuario o contraseña incorrectos');
         }
@@ -24,7 +31,7 @@ function Login () {
         <Container className='my-5'>
             <h1 className='my-5 mx-auto text-center'>Inicio de sesion</h1>
             <Container className='custom-input text-center'>
-                <Form onSubmit={handleLogin}>
+                <Form onSubmit={handleLogin} noValidate>
                     <Form.Group controlId='formBasicEmail' className='mb-3'>
                         <Form.Control 
                             type='email' 

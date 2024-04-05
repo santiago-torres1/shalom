@@ -11,7 +11,7 @@ function Slider () {
       <div className='slider_container my-0 py-5'>
         <Carousel touch={true} controls={false} pause={false} indicators={false} interval={5000}>
           {SliderInfo.map(info => (
-            <Carousel.Item>
+            <Carousel.Item key={info.id}>
               <Container fluid>
                 <Row>
                   <Col md='6'>

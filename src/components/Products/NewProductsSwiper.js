@@ -1,12 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import '../../assets/css/style.css';
 import './Products.css'
 
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Container, Row} from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 
 import products from './Products';
 
@@ -42,9 +39,8 @@ function NewProductsSwiper() {
                 }}
                 >
                     {newProducts.map(product => (
-                        <SwiperSlide className='mb-4'>
+                        <SwiperSlide className='mb-4' key={product.id}>
                             <ProductCard
-                                key={product.id}
                                 id={product.id}
                                 name={product.name}
                                 price={product.price}

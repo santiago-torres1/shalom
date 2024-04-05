@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
 import Cart from './Cart/Cart.js'
 
-function Header({isAdmin}) {
+function Header({isAdmin, onAuthChange}) {
   const [openHeader, setOpenHeader] = useState()
   const [current, setCurrent] = useState('home')
   const location = useLocation()
@@ -16,7 +16,7 @@ function Header({isAdmin}) {
 
   function Quit() {
     setOpenHeader(false);
-    localStorage.setItem('isAdmin', JSON.stringify(true));
+    onAuthChange(false);
 }
 
   useEffect(()=> {
