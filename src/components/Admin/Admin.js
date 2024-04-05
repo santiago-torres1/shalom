@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom"
+import { Container, Button } from "react-bootstrap"
 
 function Admin ({isAuthenticated}) {
     if (!isAuthenticated) {
@@ -6,9 +7,12 @@ function Admin ({isAuthenticated}) {
     }
     console.log(isAuthenticated)
     return (
-        <div>
+        <Container className="my-4">
             <h1>Administracion</h1>
-        </div>
+            <Button>Ver productos</Button>
+            <Button>Ver ordenes</Button>
+            <Button>Ver clientes</Button>
+        </Container>
     )
 }
 

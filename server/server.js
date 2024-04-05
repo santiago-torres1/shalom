@@ -1,17 +1,15 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'your_mysql_username',
-  password: 'your_mysql_password',
-  database: 'your_mysql_database',
+  host: 'db-shalom.cds6c28ae9a0.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Concentrix*2022*',
+  database: 'db_shalom',
 });
 
 
@@ -34,7 +32,22 @@ app.get('/api/products', (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3001;
+app.post('/api/signup', (req, res) => {
+  const { firstName, lastName, email, phoneNumber, password, confirmPassword } = req.body;
+  const sql = 'INSERT INTO customers (first_name, last_name, email, phone, password_hash) VALUES (?, ?, ?, ?, ?)'
+  const values = [firstName, lastName, email, phoneNumber, password]
+  connection.query(sql, values, (error, results) => {
+    if (error) {
+      console.error('Error creating account:', error);
+      res.status(500).json({error: 'Error creating account'});
+    } else {
+      console.log('Account created successfully');
+      res.status(200).json({ message: 'Account created successfully'});
+    }
+  })
+})
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

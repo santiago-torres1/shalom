@@ -11,6 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Signin from './components/Login/Signin';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope)
 
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login isAdmin={isAdmin} onAuthChange={setIsAdmin}/>} />
+            <Route path="/signin" element={<Signin />} />
             {products.map(product => (
               <Route path={`/shop/${product.id}`} key={product.id} element={<ProductPage id={product.id}img={product.img} name={product.name} price={product.price}/>}/>
             ))}

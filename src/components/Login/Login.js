@@ -19,7 +19,7 @@ function Login ({isAdmin, onAuthChange}) {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        if (email === 'admin@shalom.com' && password === 'admin') {
+        if (email === 'administrador@shalom.com.co' && password === 'Secret55') {
             setAdmin(true);
             console.log(isAdmin);
         } else {
@@ -58,7 +58,7 @@ function Login ({isAdmin, onAuthChange}) {
                         Iniciar Sesion
                     </Button>
                 </Form>
-                <Button className='custom-create-account'>Crear Cuenta</Button>
+                <Button className='custom-create-account' onClick={()=>navigate('/signin')}>Crear Cuenta</Button>
             </Container>
         </Container>
     );
