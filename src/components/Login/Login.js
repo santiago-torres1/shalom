@@ -1,58 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function Login ({isAdmin, onAuthChange}) {
+function Login () {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const [admin, setAdmin] = useState(isAdmin);
-    const [name, setName] = useState('');
-
-    useEffect(() => {
-        onAuthChange(admin)
-        if (admin === true) {
-            navigate('/admin');
-        }
-    }, [admin, onAuthChange, navigate])
-
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://shalom-backend-86344e50bd95.herokuapp.com/api/login', {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json'},
-                body: JSON.stringify({email, password})
+            const response = await axios.post('https://shalom-backend-86344e50bd95.herokuapp.com/api/login', {
+                email,
+                password
             });
-
-            if(!response.ok) {
-                throw new Error(`${response.status}`)
-            }
-            const data = await response.json();
+            const data = response.data;
             if (data.isAuthenticated) {
                 if (data.isAdmin) {
-                    setAdmin(true);
+                    navigate('/admin')
                 } else {
-                    navigate('/');
+                    navigate('/')
                 }
-                setName(data.name)
-            } else {
-                setError('Usuario o contraseña incorrectos')
-            }
+            } 
         } catch (error) {
-            if (error.toString()==='Error: 401') {
-                setError('Tu contraseña es incorrecta')
-            } else if (error.toString() === 'Error: 404') {
-                setError('No se encontro ninguna cuenta asociada con ese correo electronico.')
+            if (error.response.status === 401) {
+                setError('Tu contraseña es incorrecta');
+            } else if (error.response.status === 404) {
+                setError('No se encontró ninguna cuenta asociada con ese correo electrónico.');
+            } else {
+                setError('Error de servidor');
             }
         }
     }
 
     return (
         <Container className='my-5'>
-            <h1 className='my-5 mx-auto text-center'>Inicio de sesion</h1>
+            <h1 className='my-5 mx-auto text-center'>Inicio de sesión</h1>
             <Container className='custom-input text-center'>
                 <Form onSubmit={handleLogin} noValidate>
                     <Form.Group controlId='formBasicEmail' className='mb-3'>
@@ -68,7 +53,7 @@ function Login ({isAdmin, onAuthChange}) {
                     <Form.Group controlId='formBasicPassword' className='mb-5'>
                         <Form.Control 
                             type='password' 
-                            placeholder='Ingresa tu contrasena' 
+                            placeholder='Ingresa tu contraseña' 
                             className='rounded-0'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -76,15 +61,15 @@ function Login ({isAdmin, onAuthChange}) {
                         />
                     </Form.Group>
                     <p className='text-danger'>{error}</p>
-                    <Link to="/forgot" className='custom-forgot-password'>Olvidaste tu contraseña?</Link><br/>
+                    <Link to="/forgot" className='custom-forgot-password'>¿Olvidaste tu contraseña?</Link><br/>
                     <Button type='submit' className='mx-auto my-3 custom-login-button'>
-                        Iniciar Sesion
+                        Iniciar sesión
                     </Button>
                 </Form>
-                <Button className='custom-create-account' onClick={()=>navigate('/signin')}>Crear Cuenta</Button>
+                <Button className='custom-create-account' onClick={()=>navigate('/signin')}>Crear cuenta</Button>
             </Container>
         </Container>
     );
 };
 
-export default Login
+export default Login;

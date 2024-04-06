@@ -1,4 +1,4 @@
-import React, {Suspense, lazy, useState} from 'react';
+import React, {Suspense, lazy, useState, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -12,29 +12,42 @@ import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Signin from './components/Login/Signin';
+import axios from 'axios';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope)
 
 const ProductPage = lazy(() => import('./components/Products/ProductPage'));
 
+const initialUserData = {
+  name: null,
+  isAdmin: false,
+  isAuthenticated: false,
+};
+
 
 const App = () => {
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [userData, setUserData] = useState(initialUserData);
+  useEffect(() => {
+    axios.get('/api/authenticated')
+      .then(response => setUserData(response.data))
+      .catch(error => console.error('Error checking authentication status:', error));
+  }, []);
+
   return (
     <Router>
-      <Header isAdmin={isAdmin} onAuthChange={setIsAdmin}/>
+      <Header userData={userData} onAuthChange={setUserData}/>
       <main>
       <ScrollToTop/>
         <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/login" element={<Login isAdmin={isAdmin} onAuthChange={setIsAdmin}/>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
             {products.map(product => (
               <Route path={`/shop/${product.id}`} key={product.id} element={<ProductPage id={product.id}img={product.img} name={product.name} price={product.price}/>}/>
             ))}
-            <Route path="/admin/*" element={<Admin isAuthenticated={isAdmin}/>} />
+            <Route path="/admin/*" element={<Admin adminData={userData}/>} />
           </Routes>
         </Suspense>
       </main>

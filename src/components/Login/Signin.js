@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import Axios
 
 function Signin() {
     const [formData, setFormData] = useState({
@@ -31,16 +32,10 @@ function Signin() {
         }
 
         try {
-            const response = await fetch('https://shalom-backend-86344e50bd95.herokuapp.com/api/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+            const response = await axios.post('https://shalom-backend-86344e50bd95.herokuapp.com/api/signup', formData, {
+                headers: { 'Content-Type': 'application/json' }
             });
             
-            if (!response.ok) {
-                throw new Error('Error creating account');
-            }
-
             setError('');
             navigate('/login');
         } catch (error) {
@@ -126,7 +121,7 @@ function Signin() {
                     Crear Cuenta
                 </Button>
             </Form>
-            <Link to="/login" className='custom-forgot-password'>Ya tienes una cuenta? Inicia sesión aquí</Link><br/>
+            <Link to="/login" className='custom-forgot-password'>¿Ya tienes una cuenta? Inicia sesión aquí</Link><br/>
         </Container>
     </Container>
 );

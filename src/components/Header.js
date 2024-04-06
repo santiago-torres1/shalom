@@ -6,8 +6,10 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
 import Cart from './Cart/Cart.js'
+import { useNavigate } from 'react-router-dom'
 
-function Header({ isAdmin, onAuthChange }) {
+function Header({ userData }) {
+  const navigate = useNavigate();
   const [openHeader, setOpenHeader] = useState()
   const [current, setCurrent] = useState('home')
   const location = useLocation()
@@ -16,7 +18,6 @@ function Header({ isAdmin, onAuthChange }) {
 
   function Quit() {
     setOpenHeader(false);
-    onAuthChange(false);
   }
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function Header({ isAdmin, onAuthChange }) {
           </Link>
           <div className='d-flex'>
             {width < 992 && <Link className="nav-link">
-              <div style={isAdmin ? {display: 'none'} : null}>
+              <div style={userData.isAdmin ? {display: 'none'} : null}>
               <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.9em', position: 'relative', top: '5px', right: '2px' }} onClick={toggleCart} />
               </div>
             </Link>}
@@ -60,7 +61,7 @@ function Header({ isAdmin, onAuthChange }) {
           </div>
           <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
             <Nav className="navbar-nav mr-auto">
-              {isAdmin ? (
+              {userData.isAdmin ? (
                 <>
                   <Nav.Item className={current === '/admin' ? 'active' : undefined}>
                     <Link to="/admin" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Administrar</Link>
@@ -97,11 +98,19 @@ function Header({ isAdmin, onAuthChange }) {
                   <Nav.Item className={current === '/contact' ? 'active' : undefined}>
                     <Link to="/contact" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>Contáctanos</Link>
                   </Nav.Item>
-                  <Nav.Item className={(current === '/login' || current === '/signin') ? ' active' : undefined}>
-                    <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
-                      <span>Inicia Sesión</span>
-                    </Link>
-                  </Nav.Item>
+                  {userData.isAuthenticated ? (
+                    <Nav.Item className={current === '/myaccount' ? ' active' : undefined}>
+                      <Link to="/myaccount" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
+                        <span>Mi cuenta</span>
+                      </Link>
+                    </Nav.Item>
+                  ) : (
+                    <Nav.Item className={(current === '/login' || current === '/signin') ? ' active' : undefined}>
+                      <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
+                        <span>Inicia Sesión</span>
+                      </Link>
+                    </Nav.Item>
+                  )}
                   <div className="user_option">
                     {width >= 992 && <Link className="nav-link">
                       <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: '1.5em' }} onClick={toggleCart} />
