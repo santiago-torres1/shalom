@@ -8,7 +8,8 @@ function Login ({isAdmin, onAuthChange}) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const [admin, setAdmin] = useState(isAdmin)
+    const [admin, setAdmin] = useState(isAdmin);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         onAuthChange(admin)
@@ -17,15 +18,33 @@ function Login ({isAdmin, onAuthChange}) {
         }
     }, [admin, onAuthChange, navigate])
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        if (email === 'administrador@shalom.com.co' && password === 'Secret55') {
-            setAdmin(true);
-            console.log(isAdmin);
-        } else {
-            setError('Usuario o contraseña incorrectos');
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json'},
+                body: JSON.stringify({email, password})
+            });
+
+            if(!response.ok) {
+                throw new Error('Error con el servidor')
+            }
+            const data = await response.json();
+            if (data.isAuthenticated) {
+                if (data.isAdmin) {
+                    setAdmin(true);
+                } else {
+                    navigate('/');
+                }
+                setName(data.name)
+            } else {
+                setError('Usuario o contraseña incorrectos')
+            }
+        } catch (error) {
+            setError('Error al iniciar sesion')
         }
-    };
+    }
 
     return (
         <Container className='my-5'>
