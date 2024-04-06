@@ -21,7 +21,7 @@ function Login ({isAdmin, onAuthChange}) {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('https://shalom-backend-86344e50bd95.herokuapp.com/api/login', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json'},
                 body: JSON.stringify({email, password})
