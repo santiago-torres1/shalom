@@ -28,7 +28,7 @@ function Login ({isAdmin, onAuthChange}) {
             });
 
             if(!response.ok) {
-                throw new Error('Error con el servidor')
+                throw new Error(`${response.status}`)
             }
             const data = await response.json();
             if (data.isAuthenticated) {
@@ -42,7 +42,11 @@ function Login ({isAdmin, onAuthChange}) {
                 setError('Usuario o contraseña incorrectos')
             }
         } catch (error) {
-            setError('Error al iniciar sesion')
+            if (error.toString()==='Error: 401') {
+                setError('Tu contraseña es incorrecta')
+            } else if (error.toString() === 'Error: 404') {
+                setError('No se encontro ninguna cuenta asociada con ese correo electronico.')
+            }
         }
     }
 
@@ -72,7 +76,7 @@ function Login ({isAdmin, onAuthChange}) {
                         />
                     </Form.Group>
                     <p className='text-danger'>{error}</p>
-                    <Link to="/forgot" className='custom-forgot-password'>Olvidaste tu contrasena?</Link><br/>
+                    <Link to="/forgot" className='custom-forgot-password'>Olvidaste tu contraseña?</Link><br/>
                     <Button type='submit' className='mx-auto my-3 custom-login-button'>
                         Iniciar Sesion
                     </Button>
