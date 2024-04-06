@@ -28,7 +28,7 @@ const initialUserData = {
 const App = () => {
   const [userData, setUserData] = useState(initialUserData);
   useEffect(() => {
-    axios.get('/api/authenticated')
+    axios.get('https://shalom-backend-86344e50bd95.herokuapp.com/api/authenticated')
       .then(response => setUserData(response.data))
       .catch(error => console.error('Error checking authentication status:', error));
   }, []);
