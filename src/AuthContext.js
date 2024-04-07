@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({ name: null, isAdmin: false, isAuthenticated: false });
   useEffect(()=> {
-    axios.get(dev + 'api/authenticated').then((response) => {
+    axios.get(env + 'api/authenticated').then((response) => {
       setUserData(response.data);
     })
   }, [])
