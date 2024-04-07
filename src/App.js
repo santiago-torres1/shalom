@@ -13,6 +13,7 @@ import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Signin from './components/Login/Signin';
 import { useAuth } from './AuthContext';
+import Account from './components/Account/Account';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope);
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/myaccount" element={<Account userData={userData} />}/>
             {products.map(product => (
               <Route path={`/shop/${product.id}`} key={product.id} element={<ProductPage id={product.id} img={product.img} name={product.name} price={product.price}/>}/>
             ))}

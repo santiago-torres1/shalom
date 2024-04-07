@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 
-function Login ({handleAuth}) {
+function Login () {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, userData } = useAuth();
+
+    if (userData.isAdmin) {
+        return <Navigate to='/admin' />;
+    } else if (userData.isAuthenticated) {
+        return <Navigate to='/' />;
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await login(email, password); 
+            await login(email, password);
         } catch (error) {
             if (error.response.status === 401) {
                 setError('Tu contraseña es incorrecta');
@@ -26,6 +31,8 @@ function Login ({handleAuth}) {
             }
         }
     }
+
+
 
     return (
         <Container className='my-5'>

@@ -5,7 +5,6 @@ function Admin ({adminData}) {
     if (!adminData.isAdmin) {
         return <Navigate to="/login" />
     }
-    console.log(adminData)
     return (
         <Container className="my-4">
             <h1>Administracion</h1>
