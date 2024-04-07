@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import brandName from '../assets/images/Shalom_transparent.png'
 import Cart from './Cart/Cart.js'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 function Header({ userData }) {
   const navigate = useNavigate();
@@ -17,7 +18,18 @@ function Header({ userData }) {
   const [width, setWidth] = useState(window.innerWidth);
 
   function Quit() {
+    const handleLogout = async () => {
+      try {
+        const response = await axios.post('https://shalom-backend-86344e50bd95.herokuapp.com/api/logout');
+        window.location.href('/login');
+      } catch (error) {
+        console.error('Error logging out:', error);
+
+      }
+    };
     setOpenHeader(false);
+    handleLogout();
+  
   }
 
   useEffect(() => {

@@ -3,27 +3,19 @@ import { Container, Button, Form } from 'react-bootstrap';
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../AuthContext';
 
-function Login () {
+function Login ({handleAuth}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://shalom-backend-86344e50bd95.herokuapp.com/api/login', {
-                email,
-                password
-            });
-            const data = response.data;
-            if (data.isAuthenticated) {
-                if (data.isAdmin) {
-                    navigate('/admin')
-                } else {
-                    navigate('/')
-                }
-            } 
+            await login(email, password); 
         } catch (error) {
             if (error.response.status === 401) {
                 setError('Tu contraseña es incorrecta');
