@@ -32,14 +32,14 @@ function Signin() {
         }
 
         try {
-            const response = await axios.post('https://shalom-backend-86344e50bd95.herokuapp.com/api/signup', formData, {
+            const response = await axios.post('https://shalom-backend-5bdcf6616010.herokuapp.com/api/signup', formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             
             setError('');
             navigate('/login');
         } catch (error) {
-            setError('Error creating account');
+            setError('No se ha podido crear tu cuenta. Intenta mas tarde');
         }
     };
     
