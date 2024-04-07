@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
-const prod = 'https://shalom-backend-86344e50bd95.herokuapp.com/';
+const prod = 'https://shalom-backend-5bdcf6616010.herokuapp.com/';
 const env = prod;
 const AuthContext = createContext();
 
