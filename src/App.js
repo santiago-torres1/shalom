@@ -20,7 +20,6 @@ const ProductPage = lazy(() => import('./components/Products/ProductPage'));
 
 const App = () => {
   const { userData } = useAuth();
-  console.log(userData)
   return (
     <Router>
       <Header userData={userData}/>
