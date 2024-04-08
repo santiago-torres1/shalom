@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
 const prod = 'https://shalom-backend-5bdcf6616010.herokuapp.com/';
-const url = dev;
+const url = prod;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true
