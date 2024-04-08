@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(url + 'api/login', { email, password });
       setUserData(response);
-      /*window.location.reload();*/
+      window.location.reload();
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;
