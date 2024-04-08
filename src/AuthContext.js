@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
 const prod = 'https://shalom-backend-5bdcf6616010.herokuapp.com/';
-const env = prod;
+const url = dev;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true
@@ -11,15 +11,15 @@ axios.defaults.withCredentials = true
 export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState({ name: null, isAdmin: false, isAuthenticated: false });
   useEffect(()=> {
-    axios.get(env + 'api/authenticated').then((response) => {
+    axios.get(url + 'api/authenticated').then((response) => {
       setUserData(response.data);
     })
   }, [])
   const login = async (email, password) => {
     try {
-      const response = await axios.post(env + 'api/login', { email, password });
+      const response = await axios.post(url + 'api/login', { email, password });
       setUserData(response);
-      window.location.reload();
+      /*window.location.reload();*/
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(env + 'api/logout');
+      await axios.post(url + 'api/logout');
       setUserData({ name: null, isAdmin: false, isAuthenticated: false });
     } catch (error) {
       console.error('Error logging out:', error);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userData, login, logout }}>
+    <AuthContext.Provider value={{ userData, login, logout, url }}>
       {children}
     </AuthContext.Provider>
   );

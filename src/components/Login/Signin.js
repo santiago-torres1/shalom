@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
+import axios from 'axios'; 
 
-function Signin() {
+function Signin({url}) {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -32,7 +32,7 @@ function Signin() {
         }
 
         try {
-            const response = await axios.post('https://shalom-backend-5bdcf6616010.herokuapp.com/api/signup', formData, {
+            const response = await axios.post(`${url}api/signup`, formData, {
                 headers: { 'Content-Type': 'application/json' }
             });
             

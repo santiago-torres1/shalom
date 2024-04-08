@@ -20,7 +20,7 @@ library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope);
 const ProductPage = lazy(() => import('./components/Products/ProductPage'));
 
 const App = () => {
-  const { userData } = useAuth();
+  const { userData, url } = useAuth();
   return (
     <Router>
       <Header userData={userData}/>
@@ -31,12 +31,12 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signin" element={<Signin />} />
+            <Route path="/signin" element={<Signin url={url}/>} />
             <Route path="/myaccount" element={<Account userData={userData} />}/>
             {products.map(product => (
               <Route path={`/shop/${product.id}`} key={product.id} element={<ProductPage id={product.id} img={product.img} name={product.name} price={product.price}/>}/>
             ))}
-            <Route path="/admin/*" element={<Admin adminData={userData}/>} />
+            <Route path="/admin/*" element={<Admin adminData={userData} url={url}/>} />
           </Routes>
         </Suspense>
       </main>
