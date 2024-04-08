@@ -37,7 +37,7 @@ function AdminProducts({url}) {
     const handleRemove = async (productId) => {
         if (window.confirm('Are you sure you want to remove this product?')) {
             try {
-                await axios.delete(`${url}api/products/delete/${productId}`);
+                await axios.delete(`${url}api/products/${productId}`);
                 fetchProducts();
             } catch (error) {
                 console.error('Error removing product:', error);
@@ -47,7 +47,7 @@ function AdminProducts({url}) {
 
     const handleAdd = async () => {
         try {
-            await axios.post(`${url}api/products/add`, newProduct); 
+            await axios.post(`${url}api/products/`, newProduct); 
             fetchProducts();
             setNewProduct({
                 name: '',
@@ -63,7 +63,7 @@ function AdminProducts({url}) {
 
     const handleEditSubmit = async () => {
         try {
-            await axios.put(`${url}api/products/edit/${editProduct.id}`, editProduct); 
+            await axios.put(`${url}api/products/${editProduct.id}`, editProduct); 
             fetchProducts();
             setShowEditModal(false);
         } catch (error) {
