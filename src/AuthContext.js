@@ -2,8 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
-const prod = 'https://shalom-backend-5bdcf6616010.herokuapp.com/';
-const url = prod;
+const prod = 'https://api.tiendashalom.top/';
+const url = dev;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true

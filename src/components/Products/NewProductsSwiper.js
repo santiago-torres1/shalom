@@ -1,11 +1,13 @@
 import '../../assets/css/style.css';
 import './Products.css'
 
+import React, { useState, useEffect } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import { useAuth } from '../../AuthContext';
 
-import products from './Products';
+import axios from 'axios';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,42 +16,64 @@ import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
 
 function NewProductsSwiper() {
-    const newProducts = products;
-    return(
-        <Container fluid className='my-3' style={{maxWidth: '1024px'}}>
+    const [productArray, setProductArray] = useState([])
+    const { url } = useAuth()
+    const getProducts = async () => {
+        try {
+            const response = await axios.get(`${url}api/products`);
+            if (response.status !== 200) {
+                throw new Error('Failed to fetch products');
+            }
+            console.log(response)
+
+            const productsData = response.data;
+            const lastSixProducts = productsData.slice(-6);
+
+            setProductArray(lastSixProducts);
+        } catch (error) {
+            console.error('Error fetching products:', error.message);
+            setProductArray([]);
+        }
+    };
+
+    useEffect(() => {
+        getProducts();
+    }, [])
+    return (
+        <Container fluid className='my-3' style={{ maxWidth: '1024px' }}>
             <h2 className='my-5'>Nuevos Productos!</h2>
-                <Swiper
+            <Swiper
                 modules={[Pagination]}
                 spaceBetween={0}
                 pagination={{
                     dynamicBullets: true,
-                  }}
+                }}
                 slidesPerView={2}
                 loop={true}
                 breakpoints={{
-                640: {
-                    slidesPerView: 2,
-                },
-                768: {
-                    slidesPerView: 3,
-                },
-                1024: {
-                    slidesPerView: 4,
-                }
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                    }
                 }}
-                >
-                    {newProducts.map(product => (
-                        <SwiperSlide className='mb-4' key={product.id}>
-                            <ProductCard
-                                id={product.id}
-                                name={product.name}
-                                price={product.price}
-                                img={product.img}
-                            />
-                        </SwiperSlide>
-                    ))}
-                    
-                </Swiper>
+            >
+                {productArray.map(product => (
+                    <SwiperSlide className='mb-4' key={product.id}>
+                        <ProductCard
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            img={product.imgurl}
+                        />
+                    </SwiperSlide>
+                ))}
+
+            </Swiper>
         </Container>
     )
 }

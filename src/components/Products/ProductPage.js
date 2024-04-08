@@ -1,8 +1,15 @@
 import { Container, Button } from "react-bootstrap"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from 'react-router-dom'
 import './Products.css'
+import axios from 'axios'
+import { useAuth } from "../../AuthContext"
 
-function ProductPage({id, name, img, price}) {
+function ProductPage() {
+    const { productId } = useParams();
+    const id = productId;
+    const { url } = useAuth();
+    const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1)
     const add = () => {
         setQuantity(quantity+1)
@@ -10,23 +17,31 @@ function ProductPage({id, name, img, price}) {
     const remove = () => {
         setQuantity(quantity===1 ? quantity : quantity-1)
     }
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+          try {
+            const response = await axios.get(`${url}api/products/${id}`);
+            setProduct(response.data);
+          } catch (error) {
+            console.error('Error fetching product:', error.message);
+          }
+        };
+    
+        fetchProduct();
+      }, [id]);
+
     return(
         <Container className="my-3 custom-product-container d-flex justify-content-center">
             <div className="d-flex flex-column flex-lg-row">
                 <div className="col-lg-6">
-                    <img src={img} alt={name} style={{ maxWidth: '100%', height: 'auto' }} />
+                    <img src={product.imgurl} alt={product.name} style={{ maxWidth: '100%', height: 'auto' }} />
                 </div>
                 <div className="col-lg-6 mt-3 mt-md-0 mx-lg-3">
                     <p>Numero de referencia: {id}</p>
-                    <h1>{name}</h1>
-                    <h3>{price}</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Praesent quis sapien vel ex suscipit faucibus. 
-                        Duis ac turpis quis purus vehicula varius.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Praesent quis sapien vel ex suscipit faucibus. 
-                        Duis ac turpis quis purus vehicula varius
-                    </p>
+                    <h1>{product.name}</h1>
+                    <h3>{product.price}</h3>
+                    <p>{product.description}</p>
                     <div className="quantity-selector my-2 mx-0 px-0">
                         <button className="minus" onClick={remove} disabled={quantity === 1}>-</button>
                         <span className="quantity">{quantity}</span>

@@ -1,10 +1,9 @@
-import React, { Suspense, lazy, useState, useEffect } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import Shop from './components/Shop';
 import Login from './components/Login/Login';
-import products from './components/Products/Products';
 import WhatsappButton from './components/WhatsappButton';
 import Admin from './components/Admin/Admin';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -33,9 +32,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin url={url}/>} />
             <Route path="/myaccount" element={<Account userData={userData} />}/>
-            {products.map(product => (
-              <Route path={`/shop/${product.id}`} key={product.id} element={<ProductPage id={product.id} img={product.img} name={product.name} price={product.price}/>}/>
-            ))}
+            <Route path={'/shop/:productId'} element={<ProductPage />}/>
             <Route path="/admin/*" element={<Admin adminData={userData} url={url}/>} />
           </Routes>
         </Suspense>
