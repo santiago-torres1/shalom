@@ -19,7 +19,6 @@ function ProductCard({ id, img, name, price }) {
         try {
             setLoading(true);
             const response = await axios.post(`${url}api/cart`, { itemId: id, quantity: 1 });
-            console.log(response.data); 
         } catch (error) {
             console.error('Error adding item to cart:', error.message);
         } finally {

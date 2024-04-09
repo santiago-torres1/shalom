@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import './Products.css'
 import axios from 'axios'
 import { useAuth } from "../../AuthContext"
+import formatPrice from "../formatPrice"
 
 function ProductPage() {
     const { productId } = useParams();
@@ -23,12 +24,6 @@ function ProductPage() {
           try {
             const response = await axios.get(`${url}api/products/${id}`);
             setProduct(response.data);
-            const formattedPrice = product.price.toLocaleString('es-CO', {
-                style: 'currency',
-                currency: 'COP',
-                minimumFractionDigits: 0 
-              });
-            setProduct(prev => ({...prev, price: formattedPrice}))
           } catch (error) {
             console.error('Error fetching product:', error.message);
           }
@@ -46,7 +41,7 @@ function ProductPage() {
                 <div className="col-lg-6 mt-3 mt-md-0 mx-lg-3">
                     <p>Numero de referencia: {id}</p>
                     <h1>{product.name}</h1>
-                    <h3>{product.price}</h3>
+                    <h3>{formatPrice(product.price)}</h3>
                     <p>{product.description}</p>
                     <div className="quantity-selector my-2 mx-0 px-0">
                         <button className="minus" onClick={remove} disabled={quantity === 1}>-</button>
