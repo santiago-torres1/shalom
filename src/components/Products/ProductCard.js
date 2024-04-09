@@ -1,17 +1,32 @@
 import '../../assets/css/style.css';
-import './Products.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './Products.css';
+import { useState } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Container, Card, Button } from 'react-bootstrap';
+import { useAuth } from '../../AuthContext';
 
-import { Container, Card, Button }  from 'react-bootstrap';
-
-
-
-function ProductCard({id, img, name, price}) {
+function ProductCard({ id, img, name, price }) {
+    const [loading, setLoading] = useState(false);
+    const { url } = useAuth();
     const formattedPrice = price.toLocaleString('es-CO', {
         style: 'currency',
         currency: 'COP',
-        minimumFractionDigits: 0 
-      });
+        minimumFractionDigits: 0
+    });
+
+    const addToCart = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.post(`${url}api/cart`, { itemId: id, quantity: 1 });
+            console.log(response.data); 
+        } catch (error) {
+            console.error('Error adding item to cart:', error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Container fluid>
             <Card className='custom-card'>
@@ -26,7 +41,7 @@ function ProductCard({id, img, name, price}) {
                         <Card.Text className="font-weight-bold">{name}</Card.Text>
                         <Card.Text>{formattedPrice}</Card.Text>
                         <Button href={`/shop/${id}`} className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
-                        <Button href="#" className="cart col-12 rounded-0 custom-card-button">
+                        <Button onClick={addToCart} disabled={loading} className="cart col-12 rounded-0 custom-card-button">
                             <FontAwesomeIcon icon='shopping-bag'/>
                             &nbsp;Añadir al carrito
                         </Button>
@@ -37,5 +52,4 @@ function ProductCard({id, img, name, price}) {
     );
 }
 
-
-export default ProductCard
+export default ProductCard;

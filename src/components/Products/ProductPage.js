@@ -23,6 +23,12 @@ function ProductPage() {
           try {
             const response = await axios.get(`${url}api/products/${id}`);
             setProduct(response.data);
+            const formattedPrice = product.price.toLocaleString('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0 
+              });
+            setProduct(prev => ({...prev, price: formattedPrice}))
           } catch (error) {
             console.error('Error fetching product:', error.message);
           }
