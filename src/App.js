@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -20,19 +20,21 @@ const ProductPage = lazy(() => import('./components/Products/ProductPage'));
 
 const App = () => {
   const { userData, url } = useAuth();
+  const [reload, setReload] = useState(false);
+  const [openCart, setOpenCart] = useState();
   return (
     <Router>
-      <Header userData={userData}/>
+      <Header userData={userData} openCart={openCart} setOpenCart={setOpenCart} reload={reload} setReload={setReload}/>
       <main>
         <ScrollToTop/>
         <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/" element={<Home reload={reload} setReload={setReload} />} />
+            <Route path="/shop" element={<Shop reload={reload} setReload={setReload} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin url={url}/>} />
             <Route path="/myaccount" element={<Account userData={userData} />}/>
-            <Route path={'/shop/:productId'} element={<ProductPage />}/>
+            <Route path={'/shop/:productId'} element={<ProductPage reload={reload} setReload={setReload}/>}/>
             <Route path="/admin/*" element={<Admin adminData={userData} url={url}/>} />
           </Routes>
         </Suspense>

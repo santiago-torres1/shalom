@@ -15,7 +15,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
 
-function NewProductsSwiper() {
+function NewProductsSwiper({reload, setReload}) {
     const [productArray, setProductArray] = useState([])
     const { url } = useAuth()
     const getProducts = async () => {
@@ -69,6 +69,7 @@ function NewProductsSwiper() {
                             name={product.name}
                             price={product.price}
                             img={product.imgurl}
+                            reload={reload} setReload={setReload}
                         />
                     </SwiperSlide>
                 ))}

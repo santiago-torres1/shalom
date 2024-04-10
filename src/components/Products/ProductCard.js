@@ -5,20 +5,17 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Card, Button } from 'react-bootstrap';
 import { useAuth } from '../../AuthContext';
+import formatPrice from "../formatPrice"
 
-function ProductCard({ id, img, name, price }) {
+function ProductCard({ id, img, name, price, reload, setReload }) {
     const [loading, setLoading] = useState(false);
     const { url } = useAuth();
-    const formattedPrice = price.toLocaleString('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-        minimumFractionDigits: 0
-    });
-
+    const formattedPrice = formatPrice(price);
     const addToCart = async () => {
         try {
             setLoading(true);
             const response = await axios.post(`${url}api/cart`, { itemId: id, quantity: 1 });
+            setReload(!reload);
         } catch (error) {
             console.error('Error adding item to cart:', error.message);
         } finally {
