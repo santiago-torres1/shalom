@@ -6,6 +6,8 @@ import axios from 'axios';
 import '../Products/Products.css'
 import formatPrice from "../formatPrice"
 import { useReload } from '../../ReloadContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Cart({ open, setOpen }) {
     const [cartItems, setCartItems] = useState([]);
@@ -50,9 +52,9 @@ function Cart({ open, setOpen }) {
         } 
     };
 
-    const handleRemove = async (id) => {
+    const handleRemove = async (id, amount) => {
         try {
-            await axios.patch(`${url}api/cart`, { itemId: id, quantity: 1 });
+            await axios.patch(`${url}api/cart`, { itemId: id, quantity: amount });
             await fetchCartItems();
             setSubtotal(calculateSubtotal());
             setReload(!reload);
@@ -68,8 +70,10 @@ function Cart({ open, setOpen }) {
 
     return (
         <Container className={`cart-sidebar ${open ? 'open' : ''} overflow-auto`}>
-            <Button className='close-btn' onClick={setOpen} style={{ position: 'absolute', top: '10px', right: '10px' }}>X</Button>
-            <h2 className='mt-3'>Carrito</h2>
+            <div className='cart-top-content d-flex justify-content-between'>
+                <h2 className='mt-3'>Carrito</h2>
+                <button className='custom-close-btn' onClick={setOpen}>X</button>
+            </div>
             {cartItems.length === 0 ? (
                 <p>Tu carrito está vacío</p>
             ) : (
@@ -82,10 +86,11 @@ function Cart({ open, setOpen }) {
                                     <p>{product.name}</p>
                                     <p>{formatPrice(product.price)} x {product.quantity}</p>
                                     <div className="quantity-selector my-2 mx-0 px-0">
-                                        <button className="minus" onClick={() => handleRemove(product.id, product.quantity)}>-</button>
+                                        <button className="minus" onClick={() => handleRemove(product.id, 1)}>-</button>
                                         <span className="quantity">{product.quantity}</span>
                                         <button className="plus" onClick={() => handleAdd(product.id, product.quantity)}>+</button>
                                     </div>
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => handleRemove(product.id, product.quantity)} />
                                 </div>
                             </ListGroup.Item>
                         ))}

@@ -25,3 +25,9 @@
     z-index: 999;
   }
   
+  .cart-top-content .custom-close-btn {
+    background-color: white;
+    border: none;
+    font-size: xx-large;
+    font-weight: 700;
+  }

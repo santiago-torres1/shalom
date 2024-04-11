@@ -126,22 +126,7 @@ function Header({ userData, openCart, setOpenCart }) {
                     }}
                   />
                   {itemsInCart > 0 && (
-                    <div
-                      style={{
-                        position: "relative",
-                        top: "-10px",
-                        right: "-10px",
-                        backgroundColor: "red",
-                        color: "white",
-                        borderRadius: "50%",
-                        width: "20px",
-                        height: "20px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        fontSize: "0.8em",
-                      }}
-                    >
+                    <div className="cart-icon-number">
                       {itemsInCart}
                     </div>
                   )}
@@ -299,16 +284,8 @@ function Header({ userData, openCart, setOpenCart }) {
                   ) : (
                     <Nav.Item
                       className={
-                        current === "/login" || current === "/signin"
-                          ? " active"
-                          : undefined
-                      }
-                    >
-                      <Link
-                        to="/login"
-                        className="nav-link px-3"
-                        onClick={() => setOpenHeader(false)}
-                      >
+                        current === "/login" || current === "/signin" ? " active" : undefined}>
+                      <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
                         <span>Inicia Sesión</span>
                       </Link>
                     </Nav.Item>
@@ -316,27 +293,9 @@ function Header({ userData, openCart, setOpenCart }) {
                   <div className="user_option">
                     {width >= 992 && (
                       <div className="nav-link" onClick={toggleCart}>
-                        <FontAwesomeIcon
-                          icon="shopping-bag"
-                          style={{ fontSize: "1.5em" }}
-                        />
+                        <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: "1.5em" }}/>
                         {itemsInCart > 0 && (
-                          <div
-                            style={{
-                              position: "relative",
-                              top: "-10px",
-                              right: "-10px",
-                              backgroundColor: "red",
-                              color: "white",
-                              borderRadius: "50%",
-                              width: "20px",
-                              height: "20px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              fontSize: "0.8em",
-                            }}
-                          >
+                          <div className="cart-icon-number">
                             {itemsInCart}
                           </div>
                         )}
@@ -344,10 +303,7 @@ function Header({ userData, openCart, setOpenCart }) {
                     )}
                     <form className="form-inline">
                       <button className="btn nav_search-btn" type="submit">
-                        <FontAwesomeIcon
-                          icon="search"
-                          style={{ fontSize: "1.4em" }}
-                        />
+                        <FontAwesomeIcon icon="search" style={{ fontSize: "1.4em" }} />
                       </button>
                     </form>
                   </div>

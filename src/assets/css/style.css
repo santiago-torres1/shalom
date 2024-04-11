@@ -566,5 +566,20 @@ body {
 ._3XZUa {
   padding-top: 5px;
 }
+
+.cart-icon-number {
+  position: relative;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+}
 /*# sourceMappingURL=style.css.map */
 
