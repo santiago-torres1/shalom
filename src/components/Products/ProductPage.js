@@ -5,14 +5,16 @@ import './Products.css'
 import axios from 'axios'
 import { useAuth } from "../../AuthContext"
 import formatPrice from "../formatPrice"
+import { useReload } from "../../ReloadContext"
 
-function ProductPage({reload, setReload}) {
+function ProductPage() {
     const { productId } = useParams();
     const id = productId;
     const { url } = useAuth();
     const [product, setProduct] = useState({});
     const [ formattedPrice, setFormattedPrice] = useState (0);
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(1);
+    const { reload, setReload } = useReload();
     const add = () => {
         setQuantity(quantity+1)
     }
@@ -22,7 +24,7 @@ function ProductPage({reload, setReload}) {
 
     const handleAdd = async (id, quant) => {
         try {
-            const response = await axios.post(`${url}api/cart`, { itemId: id, quantity: quant });
+            await axios.post(`${url}api/cart`, { itemId: id, quantity: quant });
             setReload(!reload);
         } catch (error) {
             console.error('Error adding item to cart:', error.message);
@@ -41,7 +43,7 @@ function ProductPage({reload, setReload}) {
         };
         
         fetchProduct();
-      }, [id]);
+      }, [id, url]);
 
     return(
         <Container className="my-3 custom-product-container d-flex justify-content-center">

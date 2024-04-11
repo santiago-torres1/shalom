@@ -8,14 +8,16 @@ import brandName from "../assets/images/Shalom_transparent.png";
 import Cart from "./Cart/Cart.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext.js";
-import axios from "axios";
+import axios from "axios"
+import { useReload } from "../ReloadContext.js";
 
-function Header({ userData, openCart, setOpenCart, reload, setReload }) {
+function Header({ userData, openCart, setOpenCart }) {
   const navigate = useNavigate();
   const [openHeader, setOpenHeader] = useState();
   const [current, setCurrent] = useState("home");
   const location = useLocation();
   const [width, setWidth] = useState(window.innerWidth);
+  const { reload, setReload } = useReload();
   const { logout, url } = useAuth();
   const [itemsInCart, setItemsInCart] = useState(0);
 

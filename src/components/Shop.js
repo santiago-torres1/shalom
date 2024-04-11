@@ -5,7 +5,7 @@ import { Container, Row, Spinner } from 'react-bootstrap';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 
-function Shop({reload, setReload}) {
+function Shop() {
   const [productArray, setProductArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true); 
   const { url } = useAuth();
@@ -49,7 +49,6 @@ function Shop({reload, setReload}) {
                 name={product.name}
                 price={product.price}
                 img={product.imgurl}
-                reload={reload} setReload={setReload}
               />
             </Container>
           ))

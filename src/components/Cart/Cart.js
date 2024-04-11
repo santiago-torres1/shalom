@@ -5,11 +5,13 @@ import { useAuth } from '../../AuthContext';
 import axios from 'axios'; 
 import '../Products/Products.css'
 import formatPrice from "../formatPrice"
+import { useReload } from '../../ReloadContext';
 
-function Cart({ open, setOpen, reload, setReload }) {
+function Cart({ open, setOpen }) {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const [formattedPrice, setFormattedPrice] = useState (0);
+    const { reload, setReload } = useReload();
     const { url } = useAuth();
     const fetchCartItems = async () => {
         try {

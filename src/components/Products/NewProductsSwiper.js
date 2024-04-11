@@ -14,10 +14,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
+import { useReload } from '../../ReloadContext';
 
-function NewProductsSwiper({reload, setReload}) {
+function NewProductsSwiper() {
     const [productArray, setProductArray] = useState([])
     const { url } = useAuth()
+    const { reload, setReload } = useReload();
     const getProducts = async () => {
         try {
             const response = await axios.get(`${url}api/products`);
