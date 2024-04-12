@@ -15,6 +15,7 @@ function ProductPage() {
     const [ formattedPrice, setFormattedPrice] = useState (0);
     const [quantity, setQuantity] = useState(1);
     const { reload, setReload } = useReload();
+    const [ loading, setLoading ] = useState(true);
     const add = () => {
         setQuantity(quantity+1)
     }
@@ -39,12 +40,22 @@ function ProductPage() {
             setFormattedPrice(formatPrice(response.data.price));
           } catch (error) {
             console.error('Error fetching product:', error.message);
+          } finally {
+            setLoading(false);
           }
         };
         
         fetchProduct();
       }, [id, url]);
-
+    if (loading) {
+        return (
+        <div className="d-flex justify-content-center align-items-center" style={{ height: '300px' }}>
+            <Spinner animation="border" role="status">
+            <span className="sr-only">Cargando...</span>
+            </Spinner>
+        </div>
+        )
+    }
     return(
         <Container className="my-3 custom-product-container d-flex justify-content-center">
             <div className="d-flex flex-column flex-lg-row">
