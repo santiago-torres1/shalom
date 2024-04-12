@@ -41,11 +41,11 @@ function ProductCard({ id, img, name, price}) {
                     <div className='cvp'>
                         <Card.Text className="font-weight-bold">{name}</Card.Text>
                         <Card.Text>{formattedPrice}</Card.Text>
-                        <Button onClick={()=>navigate(`/shop/${id}`)} className="details col-12 rounded-0 custom-card-button">Ver Detalles</Button><br />
-                        <Button onClick={addToCart} disabled={loading} className="cart col-12 rounded-0 custom-card-button">
+                        <button onClick={()=>navigate(`/shop/${id}`)} className="details col-12 rounded-0 custom-card-button">Ver Detalles</button><br />
+                        <button onClick={addToCart} disabled={loading} className="cart col-12 rounded-0 custom-card-button">
                             <FontAwesomeIcon icon='shopping-bag'/>
                             &nbsp;Añadir al carrito
-                        </Button>
+                        </button>
                     </div>
                 </Card.Body>
             </Card>

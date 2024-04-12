@@ -13,6 +13,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Signin from './components/Login/Signin';
 import { useAuth } from './AuthContext';
 import Account from './components/Account/Account';
+import Checkout from './components/Checkout/Checkout';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope);
 
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/myaccount" element={<Account userData={userData} />}/>
             <Route path={'/shop/:productId'} element={<ProductPage reload={reload} setReload={setReload}/>}/>
             <Route path="/admin/*" element={<Admin adminData={userData} url={url}/>} />
+            <Route path="/checkout" element={<Checkout/>}/>
           </Routes>
         </Suspense>
       </main>

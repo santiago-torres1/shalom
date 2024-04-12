@@ -31,3 +31,17 @@
     font-size: xx-large;
     font-weight: 700;
   }
+
+  .checkout-btn {
+    color: white;
+    background-color: black;
+    height: 40px;
+    border: none;
+  }
+
+  .checkout-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9); 
+    border-color: rgba(0, 0, 0, 0.5); 
+  }
+
+  

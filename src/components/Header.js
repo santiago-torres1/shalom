@@ -98,33 +98,14 @@ function Header({ userData, openCart, setOpenCart }) {
     <>
       <header className="header_section sticky-top custom-header-bg">
         <Navbar expand="lg" className="custom_nav-container">
-          <Link
-            to="/"
-            className="navbar-brand px-auto mx-3 my-2"
-            id="brand-img"
-          >
-            <img
-              src={brandName}
-              alt="logo"
-              style={{ width: "120px", height: "auto" }}
-            />
+          <Link to="/" className="navbar-brand px-auto mx-3 my-2" id="brand-img">
+            <img src={brandName} alt="logo" style={{ width: "120px", height: "auto" }} />
           </Link>
           <div className="d-flex" style={width < 992 ? { height: "42px" } : {}}>
             {width < 992 && (
               <Link className="nav-link">
-                <div
-                  onClick={toggleCart}
-                  style={userData.isAdmin ? { display: "none" } : null}
-                >
-                  <FontAwesomeIcon
-                    icon="shopping-bag"
-                    style={{
-                      fontSize: "1.9em",
-                      position: "relative",
-                      top: "5px",
-                      right: "2px",
-                    }}
-                  />
+                <div onClick={toggleCart} style={userData.isAdmin ? { display: "none" } : null} >
+                  <FontAwesomeIcon icon="shopping-bag" style={{ fontSize: "1.9em", position: "relative", top: "5px", right: "2px", }} />
                   {itemsInCart > 0 && (
                     <div className="cart-icon-number">
                       {itemsInCart}
@@ -133,64 +114,29 @@ function Header({ userData, openCart, setOpenCart }) {
                 </div>
               </Link>
             )}
-            <Navbar.Toggle
-              aria-controls="navbarSupportedContent"
-              aria-expanded={openHeader}
-              onClick={() => setOpenHeader(!openHeader)}
-              className="custom-toggler mx-3"
-            />
+            <Navbar.Toggle aria-controls="navbarSupportedContent" aria-expanded={openHeader} onClick={() => setOpenHeader(!openHeader)} className="custom-toggler mx-3"/>
           </div>
           <Navbar.Collapse in={openHeader} id="navbarSupportedContent">
             <Nav className="navbar-nav mr-auto">
               {userData.isAdmin ? (
                 <>
-                  <Nav.Item
-                    className={current === "/admin" ? "active" : undefined}
-                  >
-                    <Link
-                      to="/admin"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/admin" ? "active" : undefined}>
+                    <Link to="/admin" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Administrar
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={
-                      current === "/admin/products" ? "active" : undefined
-                    }
-                  >
-                    <Link
-                      to="/admin/products"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={ current === "/admin/products" ? "active" : undefined }>
+                    <Link to="/admin/products" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Productos
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={
-                      current === "/admin/orders" ? "active" : undefined
-                    }
-                  >
-                    <Link
-                      to="/admin/orders"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={ current === "/admin/orders" ? "active" : undefined}>
+                    <Link to="/admin/orders" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Ordenes
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={
-                      current === "/admin/customers" ? "active" : undefined
-                    }
-                  >
-                    <Link
-                      to="/admin/customers"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={ current === "/admin/customers" ? "active" : undefined }>
+                    <Link to="/admin/customers" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Clientes
                     </Link>
                   </Nav.Item>
@@ -208,83 +154,40 @@ function Header({ userData, openCart, setOpenCart }) {
                 </>
               ) : (
                 <>
-                  <Nav.Item
-                    className={
-                      current === "/home" || current === "/"
-                        ? "active"
-                        : undefined
-                    }
-                  >
-                    <Link
-                      to="/"
-                      className="nav-link px-3"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/home" || current === "/" ? "active" : undefined}>
+                    <Link to="/" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
                       Inicio
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={current === "/shop" ? "active" : undefined}
-                  >
-                    <Link
-                      to="/shop"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/shop" ? "active" : undefined}>
+                    <Link to="/shop" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Productos
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={current === "/about" ? "active" : undefined}
-                  >
-                    <Link
-                      to="/about"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/about" ? "active" : undefined}>
+                    <Link to="/about" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Sobre Nosotros
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={current === "/reviews" ? "active" : undefined}
-                  >
-                    <Link
-                      to="/reviews"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/reviews" ? "active" : undefined}>
+                    <Link to="/reviews" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Reseñas
                     </Link>
                   </Nav.Item>
-                  <Nav.Item
-                    className={current === "/contact" ? "active" : undefined}
-                  >
-                    <Link
-                      to="/contact"
-                      className="nav-link px-3 custom-navlink"
-                      onClick={() => setOpenHeader(false)}
-                    >
+                  <Nav.Item className={current === "/contact" ? "active" : undefined}>
+                    <Link to="/contact" className="nav-link px-3 custom-navlink" onClick={() => setOpenHeader(false)}>
                       Contáctanos
                     </Link>
                   </Nav.Item>
                   {userData.isAuthenticated ? (
-                    <Nav.Item
-                      className={
-                        current === "/myaccount" ? " active" : undefined
-                      }
-                    >
-                      <Link
-                        to="/myaccount"
-                        className="nav-link px-3"
-                        onClick={() => setOpenHeader(false)}
-                      >
+                    <Nav.Item className= { current === "/myaccount" ? " active" : undefined }>
+                      <Link to="/myaccount" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
                         <span>Mi cuenta</span>
                       </Link>
                     </Nav.Item>
                   ) : (
                     <Nav.Item
-                      className={
-                        current === "/login" || current === "/signin" ? " active" : undefined}>
+                      className={current === "/login" || current === "/signin" ? " active" : undefined}>
                       <Link to="/login" className="nav-link px-3" onClick={() => setOpenHeader(false)}>
                         <span>Inicia Sesión</span>
                       </Link>
@@ -313,12 +216,7 @@ function Header({ userData, openCart, setOpenCart }) {
           </Navbar.Collapse>
           {openCart && <div className="overlay" onClick={toggleCart}></div>}
         </Navbar>
-        <Cart
-          open={openCart}
-          setOpen={toggleCart}
-          reload={reload}
-          setReload={setReload}
-        />
+        <Cart open={openCart} setOpen={toggleCart} reload={reload} setReload={setReload}/>
       </header>
     </>
   );
