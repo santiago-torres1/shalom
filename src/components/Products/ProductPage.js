@@ -1,4 +1,4 @@
-import { Container, Button } from "react-bootstrap"
+import { Container, Button, Spinner } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import './Products.css'
