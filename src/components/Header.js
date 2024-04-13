@@ -8,54 +8,35 @@ import brandName from "../assets/images/Shalom_transparent.png";
 import Cart from "./Cart/Cart.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext.js";
-import axios from "axios"
-import { useReload } from "../ReloadContext.js";
+import { useProduct } from "../ProductContext.js";
 
-function Header({ userData, openCart, setOpenCart }) {
+function Header() {
+  const [ openCart, setOpenCart ] = useState(false)
   const navigate = useNavigate();
-  const [openHeader, setOpenHeader] = useState();
-  const [current, setCurrent] = useState("home");
+  const [ openHeader, setOpenHeader ] = useState();
+  const [ current, setCurrent ] = useState("home");
   const location = useLocation();
   const [width, setWidth] = useState(window.innerWidth);
-  const { reload, setReload } = useReload();
-  const { logout, url } = useAuth();
+  const { logout, userData } = useAuth();
   const [itemsInCart, setItemsInCart] = useState(0);
+  const { fetchCartItems, reload } = useProduct()
+
+  const getCartItems = async () => {
+      const items = await fetchCartItems();
+      const itemsInCarttest = calculateItemsInCart(items);
+      setItemsInCart(itemsInCarttest);
+  }
 
   function Quit() {
-    const handleLogout = async () => {
-      try {
-        await logout();
-      } catch (error) {
-        console.error("Error logging out:", error);
-      }
-    };
+    const handleLogout = async () => { await logout(); }
     setOpenHeader(false);
     handleLogout();
     navigate("/");
   }
 
-  const fetchCartItems = async () => {
-    try {
-      const response = await axios.get(`${url}api/cart`);
-      const itemsList = await Promise.all(
-        response.data.items.map(async (product) => {
-          const productData = await fetchProduct(
-            product.itemId,
-            product.quantity
-          );
-          return productData;
-        })
-      );
-      const itemsInCarttest = calculateItemsInCart(itemsList);
-      setItemsInCart(itemsInCarttest);
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchCartItems();
-  }, [openCart, reload]);
+    getCartItems();
+  }, [reload]);
 
   const calculateItemsInCart = (itemsList) => {
     const itemsArray = itemsList.map((product) => product.quantity);
@@ -64,15 +45,6 @@ function Header({ userData, openCart, setOpenCart }) {
       0
     );
   }
-
-  const fetchProduct = async (id, quant) => {
-    try {
-      const response = await axios.get(`${url}api/products/${id}`);
-      return { ...response.data, quantity: quant };
-    } catch (error) {
-      console.error("Error fetching product:", error.message);
-    }
-  };
 
   useEffect(() => {
     setCurrent(location.pathname);
@@ -216,7 +188,7 @@ function Header({ userData, openCart, setOpenCart }) {
           </Navbar.Collapse>
           {openCart && <div className="overlay" onClick={toggleCart}></div>}
         </Navbar>
-        <Cart open={openCart} setOpen={toggleCart} reload={reload} setReload={setReload}/>
+        <Cart open={openCart} setOpen={toggleCart}/>
       </header>
     </>
   );

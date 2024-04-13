@@ -14,19 +14,17 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import ProductCard from './ProductCard';
-import { useReload } from '../../ReloadContext';
 
 function NewProductsSwiper() {
     const [productArray, setProductArray] = useState([])
     const { url } = useAuth()
-    const { reload, setReload } = useReload();
+    const [ reload, setReload ] = useState();
     const getProducts = async () => {
         try {
             const response = await axios.get(`${url}api/products`);
             if (response.status !== 200) {
                 throw new Error('Failed to fetch products');
             }
-            console.log(response)
 
             const productsData = response.data;
             const lastSixProducts = productsData.slice(-6);

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
+import { useAuth } from '../../AuthContext';
 
-function Signin({url}) {
+function Signin() {
+    const { url } = useAuth()
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',

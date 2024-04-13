@@ -1,30 +1,22 @@
 import '../../assets/css/style.css';
 import './Products.css';
 import { useState } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Card, Button } from 'react-bootstrap';
-import { useAuth } from '../../AuthContext';
 import formatPrice from "../formatPrice"
-import { useReload } from '../../ReloadContext';
 import { useNavigate } from 'react-router-dom'
+import { useProduct } from '../../ProductContext';
 
 function ProductCard({ id, img, name, price}) {
     const [loading, setLoading] = useState(false);
-    const { url } = useAuth();
     const navigate = useNavigate()
     const formattedPrice = formatPrice(price);
-    const { reload, setReload } = useReload();
-    const addToCart = async () => {
-        try {
-            setLoading(true);
-            await axios.post(`${url}api/cart`, { itemId: id, quantity: 1 });
-            setReload(!reload);
-        } catch (error) {
-            console.error('Error adding item to cart:', error.message);
-        } finally {
-            setLoading(false);
-        }
+    const { handleAdd } = useProduct();
+
+    const addToCart = async (id) => {
+        setLoading(true);
+        await handleAdd(id, 1);
+        setLoading(false);
     };
 
     return (
@@ -42,9 +34,12 @@ function ProductCard({ id, img, name, price}) {
                         <Card.Text className="font-weight-bold">{name}</Card.Text>
                         <Card.Text>{formattedPrice}</Card.Text>
                         <button onClick={()=>navigate(`/shop/${id}`)} className="details col-12 rounded-0 custom-card-button">Ver Detalles</button><br />
-                        <button onClick={addToCart} disabled={loading} className="cart col-12 rounded-0 custom-card-button">
+                        <button onClick={()=>(addToCart(id))} disabled={loading} className="cart col-12 rounded-0 custom-card-button">
+                            { loading ? <>Cargando...</> : <>
                             <FontAwesomeIcon icon='shopping-bag'/>
                             &nbsp;Añadir al carrito
+                            </>
+                            }
                         </button>
                     </div>
                 </Card.Body>

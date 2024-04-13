@@ -3,11 +3,14 @@ import { Navigate, useNavigate } from "react-router-dom"
 import { Container, Button } from "react-bootstrap"
 import { useLocation } from 'react-router-dom';
 import AdminProducts from "./AdminProducts"
+import { useAuth } from "../../AuthContext";
 
-function Admin ({adminData, url}) {
+function Admin () {
     const location = useLocation();
     const navigate = useNavigate();
     const [current, setCurrent] = useState('admin');
+    const { userData, url } = useAuth()
+    const adminData = userData
     useEffect(() => {
         setCurrent(location.pathname)
       }, [location]) 

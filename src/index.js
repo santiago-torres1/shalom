@@ -5,17 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './AuthContext';
-import { ReloadProvider } from './ReloadContext';
+import { ProductProvider } from './ProductContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <ReloadProvider>
-      <AuthProvider>
+  <React.Fragment>
+    <AuthProvider>
+      <ProductProvider>
         <App />
-      </AuthProvider>
-    </ReloadProvider>
-  </React.StrictMode>
+      </ProductProvider>
+    </AuthProvider>
+  </React.Fragment>
 );
 
 // If you want to start measuring performance in your app, pass a function

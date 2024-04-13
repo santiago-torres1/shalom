@@ -2,20 +2,17 @@ import { Container, Button, Spinner } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import './Products.css'
-import axios from 'axios'
-import { useAuth } from "../../AuthContext"
 import formatPrice from "../formatPrice"
-import { useReload } from "../../ReloadContext"
+import { useProduct } from "../../ProductContext"
 
 function ProductPage() {
     const { productId } = useParams();
     const id = productId;
-    const { url } = useAuth();
     const [product, setProduct] = useState({});
     const [ formattedPrice, setFormattedPrice] = useState (0);
     const [quantity, setQuantity] = useState(1);
-    const { reload, setReload } = useReload();
     const [ loading, setLoading ] = useState(true);
+    const { handleAdd, fetchProduct } = useProduct();
     const add = () => {
         setQuantity(quantity+1)
     }
@@ -23,30 +20,18 @@ function ProductPage() {
         setQuantity(quantity===1 ? quantity : quantity-1)
     }
 
-    const handleAdd = async (id, quant) => {
-        try {
-            await axios.post(`${url}api/cart`, { itemId: id, quantity: quant });
-            setReload(!reload);
-        } catch (error) {
-            console.error('Error adding item to cart:', error.message);
-        } 
-    };
+    const getProduct = async () => {
+        const data = await fetchProduct(id);
+        console.log(data);
+        setProduct(data);
+        setFormattedPrice(formatPrice(data.price));
+        setLoading(false);
+    }
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-          try {
-            const response = await axios.get(`${url}api/products/${id}`);
-            setProduct(response.data);
-            setFormattedPrice(formatPrice(response.data.price));
-          } catch (error) {
-            console.error('Error fetching product:', error.message);
-          } finally {
-            setLoading(false);
-          }
-        };
-        
-        fetchProduct();
-      }, [id, url]);
+    useEffect(() => {  
+        getProduct();
+      }, [id]);
+
     if (loading) {
         return (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '300px' }}>

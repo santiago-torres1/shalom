@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
 const prod = 'https://api.tiendashalom.top/';
-const url = prod;
+const url = dev;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true
@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
       setUserData(response.data);
     })
   }, [])
+  
   const login = async (email, password) => {
     try {
       const response = await axios.post(url + 'api/login', { email, password });

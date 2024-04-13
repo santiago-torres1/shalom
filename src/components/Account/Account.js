@@ -1,10 +1,10 @@
 import { Container, Button } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../../AuthContext';
-import { useEffect } from 'react';
 
-function Account({userData}) {
-    const { logout } = useAuth();
+
+function Account() {
+    const { logout, userData } = useAuth();
     const handleLogOut = async() => {
         try {
             await logout('/api/logout');

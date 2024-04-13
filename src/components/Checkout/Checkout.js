@@ -1,76 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { Container, ListGroup, Spinner, Image, Col, Row } from 'react-bootstrap';
-import axios from 'axios';
-import { useAuth } from '../../AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useReload } from '../../ReloadContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import formatPrice from '../formatPrice';
+import { useProduct } from '../../ProductContext';
 
 const Checkout = () => {
     const [cartItems, setCartItems] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
-    const { reload, setReload } = useReload();
-    const { url } = useAuth();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { fetchCartItems, reload, handleAdd, handleRemove } = useProduct();
     
-    const fetchCartItems = async () => {
-        try {
-            const response = await axios.get(`${url}api/cart`);
-            const itemsList = await Promise.all(response.data.items.map(async (product) => {
-                const productData = await fetchProduct(product.itemId, product.quantity);
-                return productData;
-            }));
-            setCartItems(itemsList);
-        } catch (error) {
-            console.error('Error fetching cart items:', error);
-        } finally {
-            setLoading(false)
-        }
+    const getCartItems = async () => {
+        const items = await fetchCartItems()
+        setCartItems(items);
     };
-    
-    useEffect(() => {
-        fetchCartItems();
-    }, []);
 
     useEffect(() => {
-        fetchCartItems();
+        getCartItems();
     }, [reload]);
 
     useEffect(() => {
         setSubtotal(calculateSubtotal());
     }, [cartItems]);    
 
-    const fetchProduct = async (id, quant) => {
-        try {
-            const response = await axios.get(`${url}api/products/${id}`);
-            return ({...response.data, quantity: quant})
-        } catch (error) {
-            console.error('Error fetching product:', error.message);
-        }
-    };
-    const handleAdd = async (id) => {
-        try {
-            await axios.post(`${url}api/cart`, { itemId: id, quantity: 1 });
-            await fetchCartItems();
-            setSubtotal(calculateSubtotal());
-            setReload(!reload);
-        } catch (error) {
-            console.error('Error adding item to cart:', error.message);
-        } 
+    const getAdd = (id, quant) => {
+        setLoading(true);
+        const updatedCartItems = cartItems.map(item => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + quant };
+            }
+            return item;
+        });
+        setCartItems(updatedCartItems);
+        handleAdd(id, quant).catch(error => {
+            console.error('Error adding item to cart:', error);
+            setCartItems(cartItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, quantity: item.quantity - quant };
+                }
+                return item;
+            }));
+        }).finally(()=>{
+            setLoading(false);
+        });
     };
 
-    const handleRemove = async (id, amount) => {
-        try {
-            await axios.patch(`${url}api/cart`, { itemId: id, quantity: amount });
-            await fetchCartItems();
-            setSubtotal(calculateSubtotal());
-            setReload(!reload);
-        } catch (error) {
-            console.error('Error adding item to cart:', error.message);
-        } 
+    const getRemove = async (id, quant) => {
+        setLoading(true);
+        const updatedCartItems = cartItems.map(item => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity - quant };
+            }
+            return item;
+        });
+        setCartItems(updatedCartItems);
+        handleRemove(id, quant).catch(error => {
+            console.error('Error removing item from cart:', error);
+            setCartItems(cartItems.map(item => {
+                if (item.id === id) {
+                    return { ...item, quantity: item.quantity + quant };
+                }
+                return item;
+            }));
+        }).finally(()=>{
+            setLoading(false);
+        });
     };
 
     const calculateSubtotal = () => {
@@ -108,9 +105,9 @@ const Checkout = () => {
                                         <p>{formatPrice(product.price)} x {product.quantity}</p>
                                         <div className='d-flex justify-content-between align-items-center col-12'>
                                             <div className="quantity-selector my-2 mx-0 px-0">
-                                                <button className="minus" onClick={() => handleRemove(product.id, 1)}>-</button>
+                                                <button className="minus" disabled={loading} onClick={() => getRemove(product.id, 1)}>-</button>
                                                 <span className="quantity">{product.quantity}</span>
-                                                <button className="plus" onClick={() => handleAdd(product.id, product.quantity)}>+</button>
+                                                <button className="plus" disabled={loading} onClick={() => getAdd(product.id, 1)}>+</button>
                                             </div>
                                         <FontAwesomeIcon icon={faTrash} onClick={() => handleRemove(product.id, product.quantity)} />
                                         </div>

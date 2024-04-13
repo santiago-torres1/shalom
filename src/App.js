@@ -11,39 +11,34 @@ import { faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope} from
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Signin from './components/Login/Signin';
-import { useAuth } from './AuthContext';
 import Account from './components/Account/Account';
 import Checkout from './components/Checkout/Checkout';
+import ProductPage from './components/Products/ProductPage';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope);
 
-const ProductPage = lazy(() => import('./components/Products/ProductPage'));
-
 const App = () => {
-  const { userData, url } = useAuth();
-  const [reload, setReload] = useState(false);
-  const [openCart, setOpenCart] = useState();
+  console.log('rendered')
   return (
     <Router>
-      <Header userData={userData} openCart={openCart} setOpenCart={setOpenCart} reload={reload} setReload={setReload}/>
+      <Header />
       <main>
         <ScrollToTop/>
-        <Suspense fallback={<div>Cargando...</div>}>
           <Routes>
-            <Route path="/" element={<Home reload={reload} setReload={setReload} />} />
-            <Route path="/shop" element={<Shop reload={reload} setReload={setReload} />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signin" element={<Signin url={url}/>} />
-            <Route path="/myaccount" element={<Account userData={userData} />}/>
-            <Route path={'/shop/:productId'} element={<ProductPage reload={reload} setReload={setReload}/>}/>
-            <Route path="/admin/*" element={<Admin adminData={userData} url={url}/>} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/myaccount" element={<Account />}/>
+            <Route path={'/shop/:productId'} element={<ProductPage />}/>
+            <Route path="/admin/*" element={<Admin />} />
             <Route path="/checkout" element={<Checkout/>}/>
           </Routes>
-        </Suspense>
       </main>
       <WhatsappButton />
       <Footer />
     </Router>
+
   );
 }
 
