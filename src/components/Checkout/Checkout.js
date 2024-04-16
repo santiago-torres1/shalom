@@ -123,8 +123,7 @@ const Checkout = () => {
                             <p>Envío: $0.00</p>
                             <p>Descuentos: $0.00</p>
                             <p>Total: {formatPrice(subtotal)}</p>
-                            <button className='checkout-btn' onClick={()=>navigate('/pay')}>Pagar</button>
-
+                            <button className='checkout-btn' onClick={()=>navigate('/payment')}>Pagar</button>
                         </div>
                     </Col>
                 </>

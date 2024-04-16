@@ -3,13 +3,13 @@ import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
 const prod = 'https://api.tiendashalom.top/';
-const url = prod;
+const url = dev;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true
 
 export const AuthProvider = ({ children }) => {
-  const [userData, setUserData] = useState({ name: null, isAdmin: false, isAuthenticated: false });
+  const [userData, setUserData] = useState({ name: null, email: null, isAdmin: false, isAuthenticated: false });
   useEffect(()=> {
     axios.get(url + 'api/authenticated').then((response) => {
       setUserData(response.data);
