@@ -15,33 +15,47 @@ import Account from './components/Account/Account';
 import Checkout from './components/Checkout/Checkout';
 import ProductPage from './components/Products/ProductPage';
 import Payment from './components/Payment/Payment';
+import PaymentConfirmation from './components/Payment/PaymentConfirmation';
 
 library.add(faUser, faShoppingBag, faSearch, faPhone, faMapMarker, faEnvelope, faCheck);
 
+const MainLayout = ({ children }) => (
+  <>
+    <Header />
+    <main>
+      <ScrollToTop />
+      {children}
+    </main>
+    <WhatsappButton />
+    <Footer />
+  </>
+);
+
 const App = () => {
-  console.log('rendered')
   return (
     <Router>
-      <Header />
-      <main>
-        <ScrollToTop/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/myaccount" element={<Account />}/>
-            <Route path={'/shop/:productId'} element={<ProductPage />}/>
-            <Route path="/admin/*" element={<Admin />} />
-            <Route path="/checkout" element={<Checkout />}/>
-            <Route path="/payment" element={<Payment />}/>
-          </Routes>
-      </main>
-      <WhatsappButton />
-      <Footer />
+      <Routes>
+        <Route
+          path="/"
+          element={<MainLayout><Home /></MainLayout>}
+        />
+        <Route
+          path="/shop"
+          element={<MainLayout><Shop /></MainLayout>}
+        />
+        <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
+        <Route path="/signin" element={<MainLayout><Signin /></MainLayout>} />
+        <Route path="/myaccount" element={<MainLayout><Account /></MainLayout>} />
+        <Route
+          path="/shop/:productId"
+          element={<MainLayout><ProductPage /></MainLayout>}
+        />
+        <Route path="/admin/*" element={<MainLayout><Admin /></MainLayout>} />
+        <Route path="/checkout" element={<MainLayout><Checkout /></MainLayout>} />
+        <Route path="/payment-confirmation" element={<MainLayout><PaymentConfirmation /></MainLayout>} />
+        <Route path="/payment" element={<Payment />} />
+      </Routes>
     </Router>
-
   );
 }
-
 export default App;
