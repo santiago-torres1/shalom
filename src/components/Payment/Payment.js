@@ -4,11 +4,10 @@ https://developers.payulatam.com/latam/en/docs/integrations/api-integration/paym
 https://developers.payulatam.com/latam/es/docs/getting-started/test-your-solution.html
 https://docs.envia.com/
 https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/
-'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/'
 */
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Form, Row, Col, Accordion, ListGroup, Image, Navbar, Nav } from "react-bootstrap";
 import { useAuth } from "../../AuthContext";
@@ -21,6 +20,7 @@ import brandName from "../../assets/images/Shalom_transparent.png";
 import axios from "axios";
 
 const Payment = () => {
+   const formRef = useRef();
    const departments = [
       "Amazonas", "Antioquia", "Arauca", "Atlántico", "Bogotá D.C.", "Bolívar", "Boyacá", "Caldas", 
       "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", 
@@ -51,7 +51,7 @@ const Payment = () => {
    })
 
    const [ shippingCost, setShippingCost ] = useState(0);
-   const [shipData, setShipData] = useState({
+   const [ shipData, setShipData ] = useState({
       firstName: '',
       lastName: '',
       email: userData.email,
@@ -90,7 +90,7 @@ const Payment = () => {
       const calcResult = calculateTotal(cartItems);
       setTotal(calcResult.total);
       setShippingCost(calcResult.shippingCost);
-      setShipData({...shipData, amount: calcResult.total, products: cartItems});
+      setShipData({...shipData, amount: calcResult.total, products: cartItems, email: userData.email});
   }, [cartItems]);
 
   useEffect(() => {
@@ -126,6 +126,7 @@ const Payment = () => {
    };
 
    const validateUserInfoSubmit = (e) => {
+      console.log(shipData);
       e.preventDefault();
       const phoneRegex = /^3[\d]{9}$/;
       const errors = { ...validationErrors }; 
@@ -199,7 +200,6 @@ const Payment = () => {
       try {
          const response = await axios.post(`${url}api/submitOrder`, shipData);
          setShipData(response.data);
-         console.log(response.data);
       } catch(err) {
          console.log(err);
       }
@@ -215,38 +215,20 @@ const Payment = () => {
       await handleUserInfoSubmit();
    }
 
-   const handlePayUSubmit = async () => {
-      try {
-          await handleUserInfoSubmit();
-          await axios.post('https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', {
-              merchantId: shipData.merchantId,
-              accountId: shipData.accountId,
-              description: "Test PAYU",
-              referenceCode: shipData.referenceCode,
-              amount: total,
-              tax: parseFloat((total * 0.15966).toFixed(2)),
-              taxReturnBase: parseFloat((total * 0.84034).toFixed(2)),
-              currency: shipData.currency,
-              signature: shipData.signature,
-              test: "1",
-              buyerEmail: shipData.email,
-              buyerFullName: `${shipData.firstName} ${shipData.lastName}`,
-              telephone: shipData.phoneNumber,
-              responseUrl: "https://api.tiendashalom.top/api/paymentPayU",
-              confirmationUrl: "https://api.tiendashalom.top/api/paymentPayU",
-              shippingAddress: shipData.address,
-              shippingCity: shipData.city,
-              shippingCountry: 'CO',
-              algorithmSignature: 'SHA256'
-          });
-      } catch (error) {
-          console.error('Error submitting form:', error);
-      }
-   };
-
    useEffect(()=>{
       userData.email ? setPaymentStep(1) : setPaymentStep(0);
    }, [])
+
+   const handlePayUPayment = async() => {
+      try {
+         await handleUserInfoSubmit();
+         console.log(shipData.referenceCode);
+         formRef.current.submit();
+     } catch (error) {
+         console.error('Error:', error);
+     }
+   } 
+   
 
    return (    
       <>
@@ -311,7 +293,7 @@ const Payment = () => {
                            <div>
                               <p>Tu correo: {userData.email}</p>
                               <p>Si deseas usar otro correo o otra cuenta,  <Link onClick={()=>handleLogout()} className='custom-forgot-password'>cierra sesion.</Link></p>
-                              <button type='button' onClick={()=>setPaymentStep(1)} className="continue-btn">Continuar</button>
+                              <button type='button' onClick={()=>{setPaymentStep(1)}} className="continue-btn">Continuar</button>
                            </div>
                         )}
                      </Accordion.Body>
@@ -405,9 +387,28 @@ const Payment = () => {
                         <div className="row">
                            <div className="col-md-6">
                               <p>Paga de forma segura con tarjeta de crédito, débito o PSE utilizando PayU:</p>
-                              <button className="continue-btn" onClick={handlePayUSubmit}>
-                                 Pagar con PayU
-                              </button>
+                              <form ref={formRef} id="payuForm" method="POST" action="http://localhost:3001/api/post">
+                                 <input type="hidden" name="merchantId" value={shipData.merchantId} />
+                                 <input type="hidden" name="accountId" value={shipData.accountId} />
+                                 <input type="hidden" name="description" value="Test PAYU" />
+                                 <input type="hidden" name="referenceCode" value={shipData.referenceCode} />
+                                 <input type="hidden" name="amount" value={total} />
+                                 <input type="hidden" name="tax" value={parseFloat((total * 0.15966).toFixed(2))} />
+                                 <input type="hidden" name="taxReturnBase" value={parseFloat((total * 0.84034).toFixed(2))} />
+                                 <input type="hidden" name="currency" value={shipData.currency} />
+                                 <input type="hidden" name="signature" value={shipData.signature} />
+                                 <input type="hidden" name="test" value="1" />
+                                 <input type="hidden" name="buyerEmail" value={shipData.email} />
+                                 <input type="hidden" name="buyerFullName" value={`${shipData.firstName} ${shipData.lastName}`} />
+                                 <input type="hidden" name="telephone" value={shipData.phoneNumber} />
+                                 <input type="hidden" name="responseUrl" value="https://api.tiendashalom.top/api/paymentPayU" />
+                                 <input type="hidden" name="confirmationUrl" value="https://api.tiendashalom.top/api/paymentPayU" />
+                                 <input type="hidden" name="shippingAddress" value={shipData.address} />
+                                 <input type="hidden" name="shippingCity" value={shipData.city} />
+                                 <input type="hidden" name="shippingCountry" value="CO" />
+                                 <input type="hidden" name="algorithmSignature" value="SHA256" />
+                                 <button type="button" className="continue-btn" onClick={handlePayUPayment}>Pagar con PayU</button>
+                              </form>
                            </div>
                            <div className="col-md-6">
                               <p>Paga manualmente con Nequi o Daviplata:</p>
