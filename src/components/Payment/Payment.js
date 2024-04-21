@@ -28,7 +28,8 @@ const Payment = () => {
       "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", 
       "Tolima", "Valle del Cauca", "Vaupés", "Vichada",
     ];
-   const [manualPaymentDisabled, setManualPaymentDisabled] = useState(false)
+   const [manualPaymentDisabled, setManualPaymentDisabled] = useState(false);
+   const [reloadPayu, setReloadPayu] = useState(false);
    const [paymentStep, setPaymentStep] = useState(0);
    const [ openHeader, setOpenHeader ] = useState();
    const [total, setTotal] = useState(0);
@@ -196,12 +197,16 @@ const Payment = () => {
       return ({total: subtotal + shipCost, shippingCost: shipCost });
   }
 
-   const handleUserInfoSubmit = async(e) => {
+   const handleUserInfoSubmit = async(paymentType) => {
+      console.log(paymentType);
       try {
-         const response = await axios.post(`${url}api/submitOrder`, shipData);
-         setShipData(response.data);
+         const request = {...shipData, paymentType: paymentType};
+         console.log(request);
+         const response = await axios.post(`${url}api/submitOrder`, request);
+         return (response.data)
       } catch(err) {
          console.log(err);
+         throw err;
       }
    };
 
@@ -211,8 +216,13 @@ const Payment = () => {
    }
 
    const handleManualPayment = async()=> {
-      setManualPaymentDisabled(true);
-      await handleUserInfoSubmit();
+      try {
+         setManualPaymentDisabled(true);
+         const newData = await handleUserInfoSubmit('Nequi/Daviplata');
+         setShipData(newData);
+      } catch (err) {
+         console.log('error: ', err)
+      }
    }
 
    useEffect(()=>{
@@ -221,13 +231,19 @@ const Payment = () => {
 
    const handlePayUPayment = async() => {
       try {
-         await handleUserInfoSubmit();
-         console.log(shipData.referenceCode);
-         formRef.current.submit();
+         const newData = await handleUserInfoSubmit('PayU');
+         setShipData(newData);
+         setReloadPayu(!reloadPayu);
      } catch (error) {
          console.error('Error:', error);
-     }
+     } 
    } 
+
+   useEffect(() => {
+      if (reloadPayu) {
+          formRef.current.submit(); 
+      }
+  }, [reloadPayu]);
    
 
    return (    
@@ -387,7 +403,7 @@ const Payment = () => {
                         <div className="row">
                            <div className="col-md-6">
                               <p>Paga de forma segura con tarjeta de crédito, débito o PSE utilizando PayU:</p>
-                              <form ref={formRef} id="payuForm" method="POST" action="http://localhost:3001/api/post">
+                              <form ref={formRef} id="payuForm" method="POST" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
                                  <input type="hidden" name="merchantId" value={shipData.merchantId} />
                                  <input type="hidden" name="accountId" value={shipData.accountId} />
                                  <input type="hidden" name="description" value="Test PAYU" />
@@ -401,14 +417,14 @@ const Payment = () => {
                                  <input type="hidden" name="buyerEmail" value={shipData.email} />
                                  <input type="hidden" name="buyerFullName" value={`${shipData.firstName} ${shipData.lastName}`} />
                                  <input type="hidden" name="telephone" value={shipData.phoneNumber} />
-                                 <input type="hidden" name="responseUrl" value="https://api.tiendashalom.top/api/paymentPayU" />
-                                 <input type="hidden" name="confirmationUrl" value="https://api.tiendashalom.top/api/paymentPayU" />
+                                 <input type="hidden" name="responseUrl" value={`${url}api/paymentPayU`} />
+                                 <input type="hidden" name="confirmationUrl" value={`${url}api/paymentPayU`} />
                                  <input type="hidden" name="shippingAddress" value={shipData.address} />
                                  <input type="hidden" name="shippingCity" value={shipData.city} />
                                  <input type="hidden" name="shippingCountry" value="CO" />
-                                 <input type="hidden" name="algorithmSignature" value="SHA256" />
-                                 <button type="button" className="continue-btn" onClick={handlePayUPayment}>Pagar con PayU</button>
+                                 <input type="hidden" name="algorithmSignature" value="SHA256" /> 
                               </form>
+                              <button type="button" className="continue-btn" onClick={handlePayUPayment}>Pagar con PayU</button>
                            </div>
                            <div className="col-md-6">
                               <p>Paga manualmente con Nequi o Daviplata:</p>
