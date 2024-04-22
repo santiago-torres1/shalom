@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 import { Container, Button } from "react-bootstrap"
 import { useLocation } from 'react-router-dom';
 import AdminProducts from "./AdminProducts"
+import AdminOrders from "./Orders/AdminOrders";
 import { useAuth } from "../../AuthContext";
 
 function Admin () {
@@ -18,9 +19,11 @@ function Admin () {
         return <Navigate to="/login" />
     }   
     return (
-        <Container className="my-4">
-            <h1>Administracion</h1>
-            <p>Usuario actual: {adminData.name}</p>
+        <div className="my-4 d-flex flex-column">
+            <Container>
+                <h1>Administracion</h1>
+                <p>Usuario actual: {adminData.name}</p>
+            </Container>
             {current === '/admin'&& (
                 <>
                     <Button onClick={()=>{navigate('/admin/products')}}>Ver productos</Button>
@@ -29,7 +32,8 @@ function Admin () {
                 </>
             )}
             {current === '/admin/products' && <AdminProducts url={url}/>}
-        </Container>
+            {current === '/admin/orders' && <AdminOrders url={url}/>}
+        </div>
     )
 }
 

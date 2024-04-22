@@ -45,7 +45,7 @@ function ProductPage() {
         <Container className="my-3 custom-product-container d-flex justify-content-center">
             <div className="d-flex flex-column flex-lg-row">
                 <div className="col-lg-6">
-                    <img src={product.imgurl} alt={product.name} style={{ maxWidth: '100%', height: 'auto' }} />
+                    <img src={product.images.length > 0 ? product.images[0].url : product.imgurl} alt={product.name} style={{ maxWidth: '100%', height: 'auto' }} />
                 </div>
                 <div className="col-lg-6 mt-3 mt-md-0 mx-lg-3">
                     <p>Numero de referencia: {id}</p>

@@ -444,7 +444,7 @@ const Payment = () => {
                <div className='d-flex flex-column'>
                   {cartItems.map((product)=>(
                      <ListGroup.Item key={product.itemId} className='d-flex align-items-center border-0'>
-                        <Image src={product.imgurl} alt={product.name} style={{ marginRight: '10px', width: '70px', height: 'auto' }} />
+                        <Image src={product.images.length > 0 ? product.images[0].url : product.imgurl} alt={product.name} style={{ marginRight: '10px', width: '70px', height: 'auto' }} />
                         <Container>
                            <p>{product.name}</p>
                            <p>{formatPrice(product.price)} x {product.quantity}</p>

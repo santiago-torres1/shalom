@@ -68,7 +68,7 @@ function NewProductsSwiper() {
                             id={product.id}
                             name={product.name}
                             price={product.price}
-                            img={product.imgurl}
+                            img={product.images.length > 0 ? product.images[0].url : product.imgurl}
                             reload={reload} setReload={setReload}
                         />
                     </SwiperSlide>
