@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const dev = 'http://localhost:3001/';
 const prod = 'https://api.tiendashalom.top/';
-const url = prod;
+const url = dev;
 const AuthContext = createContext();
 
 axios.defaults.withCredentials = true

@@ -198,10 +198,8 @@ const Payment = () => {
   }
 
    const handleUserInfoSubmit = async(paymentType) => {
-      console.log(paymentType);
       try {
          const request = {...shipData, paymentType: paymentType};
-         console.log(request);
          const response = await axios.post(`${url}api/submitOrder`, request);
          return (response.data)
       } catch(err) {

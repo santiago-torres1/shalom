@@ -27,7 +27,6 @@ function AdminProducts({url}) {
         try {
             const response = await axios.get(`${url}api/products`);
             setProducts(response.data);
-            console.log(products);
         } catch (error) {
             console.error('Error fetching products:', error);
         }

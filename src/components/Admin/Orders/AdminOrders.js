@@ -11,31 +11,42 @@ codigos de estado:
 */
 
 import React, { useState, useEffect } from 'react';
-import { Container, Button, Table, Modal, Form } from 'react-bootstrap';
+import { Container, Button, Table, Modal, Form, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import formatPrice from '../../formatPrice';
+import AddOrders from './AddOrders';
 
 function AdminOrders({ url }) {
     const [orders, setOrders] = useState([]);
-    const [orderBy, setOrderBy] = useState('');
+    const [orderBy, setOrderBy] = useState('orderDate');
     const [search, setSearch] = useState('');
+    const [showAddModal, setShowAddModal] = useState(false);
     const [showProductModal, setShowProductModal] = useState(false);
     const [showOrderDetailsModal, setShowOrderDetailsModal] = useState(false);
     const [showActionsModal, setShowActionsModal] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showShippingModal, setShowShippingModal] = useState(false);
     const [trackingId, setTrackingId] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [statusFilter, setStatusFilter] = useState('');
 
+    const ordersPerPage = 10;
+    const totalPages = Math.ceil(orders.length / ordersPerPage);
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+ 
     useEffect(() => {
         fetchOrders();
-    }, [orderBy, search]);
+    }, [orderBy, search, statusFilter]);
 
     const fetchOrders = async () => {
         try {
             const response = await axios.get(`${url}api/orders`, {
                 params: {
                     orderBy,
-                    search
+                    search,
+                    statusFilter
                 }
             });
             const formattedOrders = response.data.map(order => ({
@@ -46,6 +57,10 @@ function AdminOrders({ url }) {
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
+    };
+
+    const handleStatusFilterChange = (e) => {
+        setStatusFilter(e.target.value);
     };
 
     const getStatusMessage = (status) => {
@@ -62,6 +77,8 @@ function AdminOrders({ url }) {
         } else if (status === '6') {
             return 'Pedido cancelado'
         } else if (status === '7') {
+            return 'Pago pendiente (cliente)'
+        } else if (status === '8') {
             return 'Pago pendiente (efecty)'
         }
     }
@@ -94,6 +111,7 @@ function AdminOrders({ url }) {
 
     const handleShowOrderDetailsModal = (order) => {
         setSelectedOrder(order);
+        console.log(order);
         setShowOrderDetailsModal(true);
     };
 
@@ -137,7 +155,7 @@ function AdminOrders({ url }) {
     const handleMarkShippedAndClose = async () => {
         try {
             // Make API call to mark order as shipped and provide tracking ID
-            await axios.put(`${url}api/markShipped/${selectedOrder.referenceNumber}`, { trackingId });
+            await axios.put(`${url}api/orders/${selectedOrder.referenceNumber}`, { orderStatus: '4', trackingId });
             // Close the shipping modal
             handleCloseShippingModal();
             // Fetch orders again to update the list
@@ -153,6 +171,8 @@ function AdminOrders({ url }) {
             fetchOrders(); // Refresh orders after status change
         } catch (error) {
             console.error('Error completing order:', error);
+        } finally {
+            setShowActionsModal(false);
         }
     };
 
@@ -162,15 +182,18 @@ function AdminOrders({ url }) {
             fetchOrders(); // Refresh orders after status change
         } catch (error) {
             console.error('Error canceling order:', error);
+        } finally {
+            setShowActionsModal(false);
         }
     };
 
     return (
         <Container className="my-4">
-            <h1 className="mb-3">Admin Orders</h1>
+            <h1 className="mb-3">Administracion de ordenes</h1>
+            <Button className='' onClick={()=>setShowAddModal(true)}>Agregar orden</Button>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                    <Form.Control type="text" placeholder="Search by email, name, or reference number" value={search} onChange={handleSearch} />
+                    <Form.Control type="text" placeholder="Busca por email, numero de referencia o nombre" value={search} onChange={handleSearch} />
                 </div>
                 <div>
                     <Form.Select onChange={(e) => handleSort(e.target.value)}>
@@ -179,6 +202,19 @@ function AdminOrders({ url }) {
                         <option value="orderDate">Fecha</option>
                         <option value="orderName">Nombre</option>
                         <option value="totalAmount">Total</option>
+                    </Form.Select>
+                </div>
+                <div>
+                    <Form.Select onChange={handleStatusFilterChange}>
+                        <option value="">Filtrar por Estado</option>
+                        <option value="1">Pago Aprobado</option>
+                        <option value="2">Pago Pendiente</option>
+                        <option value="3">Pago Rechazado</option>
+                        <option value="4">Enviado</option>
+                        <option value="5">Recibido (Completado)</option>
+                        <option value="6">Cancelado</option>
+                        <option value="7">Pago siendo procesado por el cliente</option>
+                        <option value="8">Pago siendo procesado por PayU (efecty)</option>
                     </Form.Select>
                 </div>
             </div>
@@ -196,7 +232,7 @@ function AdminOrders({ url }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.map((order) => (
+                    {currentOrders.map((order) => (
                         <tr key={order.referenceNumber}>
                             <td>{order.referenceNumber}</td>
                             <td>{order.orderName}</td>
@@ -213,6 +249,15 @@ function AdminOrders({ url }) {
                     ))}
                 </tbody>
             </Table>
+            <Pagination className="justify-content-center">
+                <Pagination.Prev onClick={() => setCurrentPage(prevPage => prevPage > 1 ? prevPage - 1 : prevPage)} />
+                {[...Array(totalPages)].map((_, index) => (
+                    <Pagination.Item key={index + 1} active={index + 1 === currentPage} onClick={() => setCurrentPage(index + 1)}>
+                        {index + 1}
+                    </Pagination.Item>
+                ))}
+                <Pagination.Next onClick={() => setCurrentPage(nextPage => nextPage < totalPages ? nextPage + 1 : nextPage)} />
+            </Pagination>
             <Modal show={showProductModal} onHide={handleCloseProductModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Productos</Modal.Title>
@@ -334,6 +379,7 @@ function AdminOrders({ url }) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <AddOrders url={url} showAddModal={showAddModal} setShowAddModal={setShowAddModal}/>
         </Container>
     );
 }
